@@ -109,6 +109,47 @@
                         </div>
                     </div>
 
+                    <div x-show.transition.in="step === 3" style="display: none;">
+                        <div class="-mx-3">
+                            <x-select label="Provinsi" name="province" wire:model="province">
+                                <option value="" selected>Pilih</option>
+                                @foreach ($provinces as $index => $p)
+                                    <option value="{{$p['id']}}">{{$p['name']}}</option>
+                                @endforeach
+                            </x-select>
+                        </div>                        
+                        <div class="-mx-3">
+                            <x-select label="Kota" name="city" wire:model="city">
+                                <option value="" selected>Pilih</option>
+                                @if (!empty($cities))
+                                    @foreach ($cities as $index => $p)
+                                        <option value="{{$p['id']}}">{{$p['name']}}</option>
+                                    @endforeach
+                                @endif
+                            </x-select>
+                        </div>
+                        <div class="-mx-3">
+                            <x-select label="Kecamatan" name="district" wire:model="district">
+                                <option value="" selected>Pilih</option>
+                                @if (!empty($districts))
+                                    @foreach ($districts as $index => $p)
+                                        <option value="{{$p['id']}}">{{$p['name']}}</option>
+                                    @endforeach
+                                @endif
+                            </x-select>
+                        </div>
+                        <div class="-mx-3">
+                            <x-select label="Kelurahan" name="sub_district" wire:model="sub_district">
+                                <option value="" selected>Pilih</option>
+                                @if (!empty($subdistricts))
+                                    @foreach ($subdistricts as $index => $p)
+                                        <option value="{{$p['id']}}">{{$p['name']}}</option>
+                                    @endforeach
+                                @endif
+                            </x-select>
+                        </div>
+                    </div>
+
                     <div class="flex space-x-2 justify-between">
                         <span class="block w-1/2 rounded-md shadow-sm">
                             <button style="display: none;" x-show="step > 1" @click="step--" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">

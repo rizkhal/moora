@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @push('styles')
     <style>
@@ -12,7 +12,7 @@
     </style>
 @endpush
 
-@section('content')
+@section('body')
     <div id="bg" style="background-image: url('{{ asset("img/banner-bg.svg") }}');">
         <!--Nav-->
         <div class="w-full container mx-auto p-6">
@@ -49,8 +49,12 @@
                 </p>
             
                 <div class="flex w-full justify-center space-x-2 md:justify-start pb-24 lg:pb-0 fade-in">
-                    <a href="{{ route('register') }}" class="px-4 py-2 bg-red-700 rounded-md text-white font-bold hover:bg-red-800">Daftar</a>
-                    <a href="{{ route('login') }}" class="px-4 py-2 bg-red-700 rounded-md text-white font-bold hover:bg-red-800">Masuk</a>
+                    @guest
+                        <a href="{{ route('register') }}" class="px-4 py-2 bg-red-700 rounded-md text-white font-bold hover:bg-red-800">Daftar</a>
+                        <a href="{{ route('login') }}" class="px-4 py-2 bg-red-700 rounded-md text-white font-bold hover:bg-red-800">Masuk</a>
+                    @else
+                        <a href="{{ route('home') }}" class="px-4 py-2 bg-red-700 rounded-md text-white font-bold hover:bg-red-800">Dashboard</a>
+                    @endguest
                 </div>
 
             </div>

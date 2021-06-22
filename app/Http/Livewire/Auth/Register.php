@@ -6,31 +6,33 @@ use App\Models\User;
 use Livewire\Component;
 use App\Constants\Gender;
 use App\Constants\Religion;
+use App\Http\Livewire\Traits\WithRegional;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 
 class Register extends Component
 {
+    use WithRegional;
+
     public $stepper = 1;
 
     /** @var string */
-    public $nik = '';
+    public $nik;
 
     /** @var string */
-    public $phone = '';
+    public $phone;
 
     /** @var string */
-    public $name = '';
+    public $name;
 
     /** @var string */
-    public $email = '';
+    public $email;
 
     /** @var string */
-    public $password = '';
+    public $password;
 
     /** @var string */
-    public $passwordConfirmation = '';
+    public $passwordConfirmation;
 
     /** @var string */
     public $gender;
@@ -69,31 +71,21 @@ class Register extends Component
             'birth_date' => ['required'],
             'religion' => ['required']
         ]);
-        
+
         $this->validated = array_merge($this->validated, $validated);
-        
+
         $this->stepper = 3;
     }
 
     public function register()
     {
-        dd($this->validated);
-        
-        $this->validate([
-            'nik' => ['required'],
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
-            'passwordConfirmation' => ['required'],
-        ]);
+        $validated = array_merge($this->validated, $this->validateRegional());
 
-        $user = User::create([
-            'email' => $this->email,
-            'name' => $this->name,
-            'password' => Hash::make($this->password),
-        ]);
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['birth_date'] = date('Y-m-d', strtotime($validated['birth_date']));
+        unset($validated['passwordConfirmation']);
 
-        event(new Registered($user));
+        $user = User::create($validated);
 
         Auth::login($user, true);
 
@@ -105,6 +97,7 @@ class Register extends Component
         return view('livewire.auth.register', [
             'genders' => Gender::labels(),
             'religions' => Religion::labels(),
+            'provinces' => $this->provinces(),
         ])->extends('layouts.auth');
     }
 }
