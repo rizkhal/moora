@@ -44,4 +44,6 @@
             </x-card>
         </div>
     @endrole
+
+    @livewire('test')
 </div>

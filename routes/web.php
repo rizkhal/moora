@@ -4,7 +4,6 @@ use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ParticipanController;
 use App\Http\Controllers\TpsController;
 use App\Http\Controllers\WeightController;
-use App\Http\Livewire\Criteria\Criteria;
 use App\Http\Livewire\Dashboard\Home;
 use Illuminate\Support\Facades\Route;
 

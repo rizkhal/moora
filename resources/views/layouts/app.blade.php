@@ -13,7 +13,6 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @livewireStyles
-    <script src="{{ mix('js/app.js') }}"></script>
     @stack('styles')
 </head>
 
