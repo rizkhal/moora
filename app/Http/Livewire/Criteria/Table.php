@@ -34,6 +34,11 @@ class Table extends DataTableComponent
         'openModalCreate' => 'Tambah',
     ];
 
+    public function openModalCreate()
+    {
+        $this->createModal = true;
+    }
+
     public function resetValue(): void
     {
         $this->code = null;
@@ -42,31 +47,31 @@ class Table extends DataTableComponent
         $this->attribute = null;
     }
 
-    public function openModalCreate($id = null)
-    {
-        if (is_null($id)) {
-            $this->title = "Tambah kriteria";
-            $this->resetValue();
-            // set modal state true
-            // for update mode
-            $this->modalState = true;
-            $this->createModal = true;
-            return;
-        }
+    // public function openModalCreate($id = null)
+    // {
+    //     if (is_null($id)) {
+    //         $this->title = "Tambah kriteria";
+    //         $this->resetValue();
+    //         // set modal state true
+    //         // for update mode
+    //         $this->modalState = true;
+    //         $this->createModal = true;
+    //         return;
+    //     }
 
-        // set modal state false
-        // for insert mode
-        $this->modalState = false;
+    //     // set modal state false
+    //     // for insert mode
+    //     $this->modalState = false;
 
-        $this->query = $this->query()->whereId($id)->first();
+    //     $this->query = $this->query()->whereId($id)->first();
 
-        $this->code = $this->query->code;
-        $this->name = $this->query->name;
-        $this->weight = $this->query->weight;
-        $this->attribute = $this->query->attribute;
+    //     $this->code = $this->query->code;
+    //     $this->name = $this->query->name;
+    //     $this->weight = $this->query->weight;
+    //     $this->attribute = $this->query->attribute;
 
-        $this->createModal = true;
-    }
+    //     $this->createModal = true;
+    // }
 
     public function saveCriteria()
     {
