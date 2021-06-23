@@ -1,4 +1,7 @@
-import 'alpinejs';
+// when use alpine
+// from npm so many 
+// error and warning and console
+// import 'alpinejs';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

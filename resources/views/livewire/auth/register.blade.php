@@ -1,6 +1,6 @@
 @section('title', 'Buat akun baru')
 
-<div>
+<div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
     <div x-data="{step: @entangle('stepper'), password: @entangle('password'), ...form()}" class="pb-60">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <a href="{{ route('home') }}" class="flex items-center justify-center">
@@ -151,24 +151,33 @@
                     </div>
 
                     <div class="flex space-x-2 justify-between">
-                        <span class="block w-1/2 rounded-md shadow-sm">
+                        <span class="block w-1/2 rounded-md">
                             <button style="display: none;" x-show="step > 1" @click="step--" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
                                 <i class="mdi mdi-arrow-left text-white text-lg mr-2"></i>
                                 Kembali
                             </button>
                         </span>
                         <span class="block w-1/2 rounded-md shadow-sm">
-                            <button style="display: none;" x-show="step <= 1" wire:click="firstStepSubmit" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
-                                Lanjut
-                                <i class="mdi mdi-arrow-right text-white text-lg ml-2"></i>
+                            <button wire:target="firstStepSubmit" wire:loading.class="cursor-not-allowed" wire:loading.attr="disabled" style="display: none;" x-show="step <= 1" wire:click="firstStepSubmit" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
+                                <span wire:target="firstStepSubmit" wire:loading.remove>
+                                    Lanjut
+                                    <i class="mdi mdi-arrow-right text-white text-lg ml-2"></i>
+                                </span>
+                                <span class="py-1" wire:loading wire:target="firstStepSubmit">Loading...</span>
                             </button>
-                            <button style="display: none;" x-show="step === 2" wire:click="secondStepSubmit" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
-                                Lanjut
-                                <i class="mdi mdi-arrow-right text-white text-lg ml-2"></i>
+                            <button wire:target="secondStepSubmit" wire:loading.class="cursor-not-allowed" wire:loading.attr="disabled" style="display: none;" x-show="step === 2" wire:click="secondStepSubmit" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
+                                <span wire:target="secondStepSubmit" wire:loading.remove>
+                                    Lanjut
+                                    <i class="mdi mdi-arrow-right text-white text-lg ml-2"></i>
+                                </span>
+                                <span class="py-1" wire:loading wire:target="secondStepSubmit">Loading...</span>
                             </button>
-                            <button x-show="step === 3" wire:click="register" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
-                                Daftar
-                                <i class="mdi mdi-arrow-right text-white text-lg ml-2"></i>
+                            <button wire:target="secondStepSubmit" wire:loading.class="cursor-not-allowed" wire:loading.attr="disabled" x-show="step === 3" wire:click="register" type="button" class="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring-yellow active:bg-yellow-700 transition duration-150 ease-in-out">
+                                <span wire:target="register" wire:loading.remove>
+                                    Daftar
+                                    <i class="mdi mdi-arrow-right text-white text-lg ml-2"></i>
+                                </span>
+                                <span class="py-1" wire:loading wire:target="register">Loading...</span>
                             </button>
                         </span>
                     </div>

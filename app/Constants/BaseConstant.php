@@ -19,7 +19,7 @@ abstract class BaseConstant
      * @param integer $key
      * @return string
      */
-    public function label(int $key): string
+    public static function label(int $key): string
     {
         return static::labels()[$key];
     }

@@ -12,10 +12,30 @@ class Regional
     {
         $response = Http::get(config('regional.endpoint') . "/{$param}.json");
         if ($response->successful()) {
-            return objectToArray(json_decode($response->body()));
+            return object_to_array(json_decode($response->body()));
         }
 
         return false;
+    }
+    
+    public static function province(int $id)
+    {
+        return static::get("province/{$id}");
+    }
+
+    public static function city(int $id)
+    {
+        return static::get("regency/{$id}");
+    }
+
+    public static function district(int $id)
+    {
+        return static::get("district/{$id}");
+    }
+
+    public static function subdistrict(int $id)
+    {
+        return static::get("village/{$id}");
     }
     
     /**

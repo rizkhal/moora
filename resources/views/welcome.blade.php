@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.auth')
 
 @push('styles')
     <style>
@@ -12,7 +12,7 @@
     </style>
 @endpush
 
-@section('body')
+@section('content')
     <div id="bg" style="background-image: url('{{ asset("img/banner-bg.svg") }}');">
         <!--Nav-->
         <div class="w-full container mx-auto p-6">

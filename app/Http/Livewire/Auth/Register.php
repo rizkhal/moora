@@ -87,6 +87,8 @@ class Register extends Component
 
         $user = User::create($validated);
 
+        $user->assignRole('Participan');
+        
         Auth::login($user, true);
 
         return redirect()->intended(route('home'));
