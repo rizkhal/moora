@@ -8,8 +8,11 @@
             </h2>
         </div>
 
-        <div class="p-1 pb-16 overflow-auto">
+        <div class="p-1 pb-6 overflow-auto">
             @livewire('participan.table')
+        </div>
+        <div class="p-1 pb-16 overflow-auto">
+            @livewire('participan.calculate')
         </div>
     </div>
 @endsection

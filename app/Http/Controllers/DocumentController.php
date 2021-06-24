@@ -14,7 +14,6 @@ class DocumentController extends Controller
         return view('document.index', [
             'title' => 'Upload Berkas',
             'user' => User::query()->where('id', Auth::id())->firstOrFail(),
-            'criterias' => Criteria::query()->select(['id', 'name'])->get(),
         ]);
     }
 }

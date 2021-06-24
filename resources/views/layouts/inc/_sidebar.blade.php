@@ -64,9 +64,9 @@
         </ul>
         @role('Admin')
         <div class="px-6 my-6">
-            <button
+            <a href="{{ route('participan.result') }}"
                 class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-800 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                Buat Perengkingan
+                Daftar Perengkingan
                 <span class="ml-2" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -76,7 +76,7 @@
                         <line x1="8" y1="12" x2="16" y2="12"></line>
                     </svg>
                 </span>
-            </button>
+            </a>
         </div>
         @endrole
     </div>

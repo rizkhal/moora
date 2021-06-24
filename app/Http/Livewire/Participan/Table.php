@@ -16,7 +16,20 @@ class Table extends DataTableComponent
     // if not, after modal open
     // url has been reset to root
     protected $queryString = [];
-    
+
+    public array $bulkActions = [
+        'calculate' => 'Set Alternatif',
+    ];
+
+    public function calculate()
+    {
+        if (count($this->selectedKeys)) {
+            $this->emitTo('participan.calculate', 'setAlternative', $this->selectedKeys);
+        }
+
+        $this->resetAll();
+    }
+
     public function columns(): array
     {
         return [
@@ -48,11 +61,10 @@ class Table extends DataTableComponent
                 ->format(function ($value, $column, $row) {
                     return Religion::label($value);
                 }),
-            Column::make('Alamat', 'province')
-                ->sortable()
-                ->searchable()
+            Column::make('Aksi')
                 ->format(function ($value, $column, $row) {
-                    return $value;
+                    return view('livewire.participan.action', ['row' => $row]);
+
                     // sangat clean code wkwkw
                     // return ucfirst(strtolower(Regional::province($value)['name']))
                     //     . ", " . ucfirst(strtolower(Regional::city($row->city)['name']))

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -43,5 +44,10 @@ class User extends Authenticatable
         return $query->whereHas('roles', function($q) {
             $q->where('name', '<>', 'Admin');
         });
+    }
+
+    public function detail(): BelongsTo
+    {
+        return $this->belongsTo(UserDetail::class, 'id', 'user_id');
     }
 }
