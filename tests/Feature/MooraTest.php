@@ -11,7 +11,7 @@ class MooraTest extends TestCase
 {
     // max => benefit
     // min => cost
-    protected $criteria = [
+    protected $alternative = [
         [0.5, 0.8, 1, 0.2, 1], // c1 => max
         [1, 0.7, 0.3, 1, 0.7], // c2 => max
         [0.7, 1, 0.4, 0.5, 0.4], // c3 => max
@@ -29,13 +29,17 @@ class MooraTest extends TestCase
      * c5 => 0.15
      */
     protected $bobot = [
-        0.3, 0.2, 0.2, 0.15, 0.15
+        0.3, // benefit
+        0.2, // benefit
+        0.2, // benefit
+        0.15, // cost
+        0.15 // cost
     ];
 
     public function test_calculate()
     {
         // hitung pembagi
-        $pembagi = $this->calculatePembagi($this->criteria);
+        $pembagi = $this->calculatePembagi($this->alternative);
 
         $this->assertEquals([
             1.7117242768624,
@@ -46,7 +50,7 @@ class MooraTest extends TestCase
         ], $pembagi);
 
         // normalisasi mtriks
-        $normalize = $this->normalize($this->criteria, $pembagi);
+        $normalize = $this->normalize($this->alternative, $pembagi);
         
         $this->assertEquals([
             [0.29210311891849, 0.46736499026959, 0.58420623783699, 0.1168412475674, 0.58420623783699],

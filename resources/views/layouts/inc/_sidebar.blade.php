@@ -60,23 +60,6 @@
                         <span class="ml-4">Kriteria</span>
                     </a>
                 </li>
-                <li class="relative px-6 py-3">
-                    @active('weight')
-                        <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
-                    @endactive
-                    <a class="@active('weight') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                        href="{{ route('weight') }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-wind">
-                            <path
-                                d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2">
-                            </path>
-                        </svg>
-                        <span class="ml-4">Bobot Alternatif</span>
-                    </a>
-                </li>
             @endrole
         </ul>
         @role('Admin')
