@@ -12,6 +12,11 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class Table extends DataTableComponent
 {
+    // keep clean url when request
+    // if not, after modal open
+    // url has been reset to root
+    protected $queryString = [];
+    
     public function columns(): array
     {
         return [

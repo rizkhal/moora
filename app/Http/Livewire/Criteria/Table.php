@@ -34,6 +34,11 @@ class Table extends DataTableComponent
         'openModalCreate' => 'Tambah',
     ];
 
+    // keep clean url when request
+    // if not, after modal open
+    // url has been reset to root
+    protected $queryString = [];
+
     public function resetValue(): void
     {
         $this->code = null;
