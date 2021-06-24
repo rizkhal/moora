@@ -1,6 +1,6 @@
 <!-- Desktop sidebar -->
-<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
-    <div class="py-4 text-gray-500 dark:text-gray-400">
+<aside class="flex flex-shrink-0 z-20 min-h-screen hidden md:block w-64 overflow-auto bg-white dark:bg-gray-800">
+    <div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
         <a class="flex flex-col items-center justify-center" href="#">
             <img src="{{ asset('img/logo.svg') }}" width="80" alt="Logo KPU">
             <div class="mt-3 font-extrabold text-center text-gray-700 dark:text-gray-200">

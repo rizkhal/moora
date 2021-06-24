@@ -8,7 +8,7 @@
             </h2>
         </div>
 
-        <div class="p-1 pb-16 overflow-x-scroll">
+        <div class="p-1 pb-16 overflow-auto">
             @livewire('criteria.table', ['attr' => $attributes])
         </div>
     </div>

@@ -7,7 +7,7 @@
     @if (!isset($title))
         <title>👋🏻 Hy {{ auth()->user()->name }}, Selamat Datang Kembali</title>
     @else
-        <title>{{ $title }}</title>
+        <title>👉🏻 &nbsp; {{ $title }}</title>
     @endif
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
@@ -16,7 +16,7 @@
     @stack('styles')
 </head>
 
-<body>
+<body class="bg-gray-200">
     @role('Participan')
     <div class="py-2 bg-gradient-to-r from-yellow-300 to-red-500 overflow-hidden">
         <div class="relative max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,7 +100,7 @@
                 <span aria-hidden="true" class="hidden sm:block mx-6 h-6 w-px bg-white bg-opacity-20"></span>
                 <div class="ml-6 sm:ml-0">
                     <a class="whitespace-nowrap inline-flex rounded-md bg-white py-2 px-3 text-xs font-semibold uppercase text-red-500 hover:bg-opacity-90"
-                        href="/docs/just-in-time-mode">
+                        href="{{ route('document') }}">
                         Upload Sekarang →
                     </a>
                 </div>
@@ -109,17 +109,11 @@
         </div>
     </div>
     @endrole
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <div class="flex full bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         @include('layouts.inc._sidebar')
         <div class="flex flex-col flex-1 w-full">
             @include('layouts.inc._navbar')
-            <main class="h-full">
-                <div class="container pt-6 px-6 mx-auto">
-                    {{-- trigger with browser event from livewire component --}}
-                    <x-alert></x-alert>
-                </div>
-                @yield('content')
-            </main>
+            @yield('content')
         </div>
     </div>
 
