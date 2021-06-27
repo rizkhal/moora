@@ -21,6 +21,10 @@
                                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Peserta
                             </th>
+                            <th
+                                class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Author
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
@@ -31,7 +35,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">
                                     <div class="flex items-center justify-start w-full overflow-x-auto">
-                                        @for ($i = 0; $i < 10; $i++)
+                                        @for ($i = 0; $i < 4; $i++)
                                             <img class="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125"
                                                 src="https://randomuser.me/api/portraits/men/1.jpg" />
                                             <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125"
@@ -42,7 +46,10 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">
-                                    <x-btn-view url="/"></x-btn-view>
+                                    {{ $item->author->name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">
+                                    <x-btn-view url="{{ route('participan.detail', ['id' => $item->id]) }}"></x-btn-view>
                                 </td>
                             </tr>
                         @endforeach

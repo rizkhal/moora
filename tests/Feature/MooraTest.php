@@ -29,9 +29,9 @@ class MooraTest extends TestCase
      * c5 => 0.15
      */
     protected $bobot = [
-        0.3, // benefit
-        0.2, // benefit
-        0.2, // benefit
+        0.30, // benefit
+        0.20, // benefit
+        0.20, // benefit
         0.15, // cost
         0.15 // cost
     ];
@@ -41,6 +41,8 @@ class MooraTest extends TestCase
         // hitung pembagi
         $pembagi = $this->calculatePembagi($this->alternative);
 
+        dd($pembagi);
+        
         $this->assertEquals([
             1.7117242768624,
             1.7521415467935,
@@ -211,16 +213,12 @@ class MooraTest extends TestCase
         $count = count($matrix);
         for ($i = 0; $i < $count; $i++) {
             for ($j = 0; $j < $count; $j++) {
-                // looping ke kanan untuk
-                // mendapatkan hasil kuadrat dari matrix
                 $tmp[$i][$j] = pow($matrix[$i][$j], 2);
             }
-
-            // jumlahkan hasil matriks
-            // dan ambil akar kuadrat
-            // menggunakan metode `sqrt`
             $result[] = sqrt(array_sum($tmp[$i]));
         }
+        
+        dd($result);
 
         return $result;
     }
