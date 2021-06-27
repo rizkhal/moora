@@ -6,7 +6,7 @@
             Upload Berkas
         </h2>
         <div class="overflow-auto">
-            @livewire('document.upload', ['criterias' => $criterias, 'user' => $user])
+            @livewire('document.upload', ['user' => $user])
         </div>
     </div>
 @endsection

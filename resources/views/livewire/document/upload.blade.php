@@ -28,10 +28,9 @@
         </div>
     </form>
     <form wire:submit.prevent="upload">
-        @foreach ($criterias as $item)
-            <x-input wire:model.defer="{{ strtolower($item->name) }}" type="number" name="{{ strtolower($item->name) }}"
-                icon="mdi mdi-lightbulb-on-outline" label="{{ ucfirst($item->name) }}" />
-        @endforeach
+        <x-input accept="application/pdf" wire:model="diploma" type="file" name="diploma" icon="mdi mdi-file-document" label="Ijazah" />
+        <x-input accept="application/pdf" wire:model="disease_history" type="file" name="disease_history" icon="mdi mdi-file-document"
+            label="Riwayat Penyakit" />
         <button class="px-3 mx-3 py-2 bg-red-500 text-white rounded-md">
             Upload
         </button>

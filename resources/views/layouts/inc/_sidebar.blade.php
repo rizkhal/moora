@@ -60,30 +60,13 @@
                         <span class="ml-4">Kriteria</span>
                     </a>
                 </li>
-                <li class="relative px-6 py-3">
-                    @active('weight')
-                        <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
-                    @endactive
-                    <a class="@active('weight') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                        href="{{ route('weight') }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-wind">
-                            <path
-                                d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2">
-                            </path>
-                        </svg>
-                        <span class="ml-4">Bobot Alternatif</span>
-                    </a>
-                </li>
             @endrole
         </ul>
         @role('Admin')
         <div class="px-6 my-6">
-            <button
+            <a href="{{ route('participan.result') }}"
                 class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-800 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                Buat Perengkingan
+                Daftar Perengkingan
                 <span class="ml-2" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -93,7 +76,7 @@
                         <line x1="8" y1="12" x2="16" y2="12"></line>
                     </svg>
                 </span>
-            </button>
+            </a>
         </div>
         @endrole
     </div>

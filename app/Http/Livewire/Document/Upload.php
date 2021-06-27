@@ -2,15 +2,20 @@
 
 namespace App\Http\Livewire\Document;
 
+use App\Models\User;
+use Livewire\Component;
 use App\Constants\Gender;
 use App\Constants\Religion;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Carbon;
-use Livewire\Component;
 
 class Upload extends Component
 {
-    public $criterias;
-    
+    use WithFileUploads;
+
+    /** @var string */
+    public $pid;
+
     /** @var string */
     public $nik;
 
@@ -35,8 +40,15 @@ class Upload extends Component
     /** @var string */
     public $religion;
 
+    /** @var object */
+    public $diploma;
+
+    /** @var object */
+    public $disease_history;
+
     public function mount($user)
     {
+        $this->pid = $user->id;
         $this->nik = $user->nik;
         $this->name = $user->name;
         $this->phone = $user->phone;
@@ -47,9 +59,42 @@ class Upload extends Component
         $this->religion = Religion::label($user->religion);
     }
 
+    public function updatedDiploma()
+    {
+        // $this->validate([
+        //     'diploma' => 'max:1024',
+        // ]);
+    }
+
+    public function updatedDiseaseHistory()
+    {
+        // $this->validate([
+        //     'disease_history' => 'max:1024',
+        // ]);
+    }
+
     public function upload()
     {
-        dd(request()->all());
+        $this->validate([
+            'diploma' => 'required',
+            'disease_history' => 'required',
+        ]);
+
+        try {
+            $diploma = $this->diploma->store('documents');
+            $disease = $this->disease_history->store('documents');
+
+            User::query()->whereId($this->pid)->first()
+                ->detail()->create([
+                    'diploma' => $diploma,
+                    'disease_history' => $disease,
+                    'user_id' => $this->pid,
+                ]);
+
+            return redirect()->route('home');
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     public function render()
