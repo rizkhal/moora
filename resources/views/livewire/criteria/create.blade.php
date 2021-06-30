@@ -49,15 +49,18 @@
                             @enderror
                         </div>
                         <div class="">
-                            <button type="button" wire:click.prevent="removeField('{{ $key }}')"
+                            <button wire:target="removeField('{{ $key }}')"
+                                wire:click.prevent="removeField('{{ $key }}')" type="button"
                                 class="@error('fields.' . $key) -mt-4 @enderror @error('values.' . $key) -mt-4 @enderror p-2 bg-red-600 border-2 border-red-600 rounded-lg text-white text-md mt-3 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                <svg wire:loading.remove wire:target="removeField('{{ $key }}')"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-x-circle">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <line x1="15" y1="9" x2="9" y2="15"></line>
                                     <line x1="9" y1="9" x2="15" y2="15"></line>
                                 </svg>
+                                <span wire:target="removeField('{{ $key }}')" wire:loading>Loading..</span>
                             </button>
                         </div>
                     </div>
@@ -69,9 +72,10 @@
                     class="px-3 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
                     Simpan
                 </button>
-                <button wire:click.prevent="addField" type="button"
+                <button wire:target="addField" wire:click.prevent="addField" type="button"
                     class="px-3 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                    Tambah Field
+                    <span wire:loading wire:target="addField">Loading..</span>
+                    <span wire:loading.remove wire:target="addField">Tambah Field</span>
                 </button>
             </div>
         </form>
