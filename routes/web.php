@@ -13,7 +13,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', Home::class)->name('home');
     Route::get('/tps', [TpsController::class, 'index'])->name('tps');
     Route::get('/weight', [WeightController::class, 'index'])->name('weight');
-    Route::get('/criteria', [CriteriaController::class, 'index'])->name('criteria');
+
+    Route::prefix('criteria')->as('criteria.')->group(function () {
+        Route::get('/', [CriteriaController::class, 'index'])->name('index');
+        Route::get('/create', [CriteriaController::class, 'create'])->name('create');
+        Route::get('/edit/{id}', [CriteriaController::class, 'edit'])->name('edit');
+    });
+
     Route::get('/participans', [ParticipanController::class, 'index'])->name('participan');
     Route::get('/participan/result', [ParticipanController::class, 'result'])->name('participan.result');
     Route::get('/participan/result/{id}', [ParticipanController::class, 'detail'])->name('participan.detail');

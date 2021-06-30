@@ -121,6 +121,9 @@
         @include('layouts.inc._sidebar')
         <div class="flex flex-col flex-1 w-full">
             @include('layouts.inc._navbar')
+            <div class="px-6 mt-6">
+                <x-alert></x-alert>
+            </div>
             @yield('content')
         </div>
     </div>
