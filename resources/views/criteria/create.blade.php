@@ -9,7 +9,7 @@
         </div>
 
         <div class="p-1 pb-16 overflow-auto">
-            @livewire('criteria.table')
+            @livewire('criteria.form', ['attr' => $attributes])
         </div>
     </div>
 @endsection

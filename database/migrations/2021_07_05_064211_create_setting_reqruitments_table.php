@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCriteriasTable extends Migration
+class CreateSettingReqruitmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCriteriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('criterias', function (Blueprint $table) {
+        Schema::create('setting_reqruitments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->smallInteger('attribute');
+            $table->float('pas_min');
+            $table->smallInteger('req_status');
             $table->foreignId('created_by');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateCriteriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('criterias');
+        Schema::dropIfExists('setting_reqruitments');
     }
 }

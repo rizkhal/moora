@@ -30,7 +30,6 @@ class Calculate extends Component
             'values' => ['required'],
         ]);
 
-
         try {
             $weight = Criteria::query()->select(['weight', 'attribute'])->get();
 

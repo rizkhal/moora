@@ -5,8 +5,8 @@
             <div class="w-10 mt-2 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                 <i class="mdi {{ $icon }} text-gray-400 text-lg"></i>
             </div>
-            <select {{ $attributes->wire('model') }}
-                class="-ml-10 pl-10 w-full text-gray-600 bg-white h-11 mt-2 pr-6 appearance-none rounded-lg border-2 border-gray-200 focus:outline-none focus:border-yellow-500">
+            <select wire:ignore {{ $attributes->wire('model') }}
+                class="@error($name) border-red-400 @enderror -ml-10 pl-10 w-full text-gray-600 bg-white h-11 mt-2 pr-6 appearance-none rounded-lg border-2 border-gray-200 focus:outline-none focus:border-yellow-500 dark:border-gray-800 dark:bg-gray-700">
                 {{ $slot }}
             </select>
         </div>
