@@ -1,6 +1,12 @@
 <div>
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <form wire:submit.prevent="save">
+        <form
+            @if (!$row)
+                wire:submit.prevent="save"
+            @else
+                wire:submit.prevent="update('{{ $row->id }}')"
+            @endif
+        >
             <div class="flex justify-between items-center w-full">
                 <x-input label="Nama Kriteria" wire:model.defer="name" type="text" name="name"
                     icon="mdi mdi-lightbulb-on-outline" />
@@ -65,10 +71,17 @@
             @endforeach
 
             <div class="px-3 flex justify-start space-x-2">
-                <button
-                    class="px-3 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                    Simpan
-                </button>
+                @if (!$row)
+                    <button
+                        class="px-3 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                        Simpan
+                    </button>
+                @else
+                    <button
+                        class="px-3 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                        Ubah
+                    </button>
+                @endif
                 <button wire:target="addField" wire:click.prevent="addField" type="button"
                     class="px-3 py-2 bg-red-600 rounded-md text-white hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
                     <span wire:loading wire:target="addField">Loading..</span>

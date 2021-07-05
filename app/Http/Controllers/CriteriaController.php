@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\Attribute;
-use Illuminate\Http\Request;
+use App\Models\Criteria;
 
 class CriteriaController extends Controller
 {
@@ -24,7 +24,10 @@ class CriteriaController extends Controller
 
     public function edit(string $id)
     {
+        $criteria = Criteria::query()->with('sub_criteria')->where('id', $id)->first();
+        
         return view('criteria.edit', [
+            'row' => $criteria,
             'title' => 'Tambah Kriteria',
             'attributes' => Attribute::labels(),
         ]);
