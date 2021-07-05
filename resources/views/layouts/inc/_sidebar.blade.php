@@ -2,10 +2,11 @@
 <aside class="flex flex-shrink-0 z-20 min-h-screen hidden md:block w-64 overflow-auto bg-white dark:bg-gray-800">
     <div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
         <a class="flex flex-col items-center justify-center" href="#">
-            <img src="{{ asset('img/logo.svg') }}" width="80" alt="Logo KPU">
+            <img src="{{ asset($setting->site_logo) }}" width="80" alt="Logo KPU">
             <div class="mt-3 font-extrabold text-center text-gray-700 dark:text-gray-200">
-                <h3>Komisi Pemilihan Umum</h3>
-                <h3>Lubuk Linggau</h3>
+                {{-- <h3>Komisi Pemilihan Umum</h3>
+                <h3>Lubuk Linggau</h3> --}}
+                <h3 class="mx-2">{{ $setting->site_logo_text }}</h3>
             </div>
         </a>
         <ul class="mt-6">
@@ -27,39 +28,59 @@
             </li>
         </ul>
         <ul>
+            @role('Participan')
+            <li class="relative px-6 py-3">
+                @active('participan')
+                <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
+                    aria-hidden="true"></span>
+                @endactive
+                <a class="@active('participan') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    href="{{ route('participan.index') }}">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                        </path>
+                    </svg>
+                    <span class="ml-4">Peserta</span>
+                </a>
+            </li>
+            @endrole
             @role('Admin')
-                <li class="relative px-6 py-3">
-                    @active('participans')
-                    <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
-                    @endactive
-                    <a class="@active('participans') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                        href="{{ route('participan') }}">
-                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                            </path>
-                        </svg>
-                        <span class="ml-4">Peserta</span>
-                    </a>
-                </li>
-                <li class="relative px-6 py-3">
-                    @active('criteria*')
-                        <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
-                    @endactive
-                    <a class="@active('criteria*') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                        href="{{ route('criteria.index') }}">
-                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                            </path>
-                        </svg>
-                        <span class="ml-4">Kriteria</span>
-                    </a>
-                </li>
+            <li class="relative px-6 py-3">
+                @active('criteria*')
+                <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
+                    aria-hidden="true"></span>
+                @endactive
+                <a class="@active('criteria*') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    href="{{ route('criteria.index') }}">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                        </path>
+                    </svg>
+                    <span class="ml-4">Kriteria</span>
+                </a>
+            </li>
+            <li class="relative px-6 py-3">
+                @active('setting*')
+                <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"
+                    aria-hidden="true"></span>
+                @endactive
+                <a class="@active('setting*') dark:text-gray-200 text-gray-800 @endactive inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    href="{{ route('setting.index') }}">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-settings">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                    <span class="ml-4">Pengaturan</span>
+                </a>
+            </li>
             @endrole
         </ul>
         @role('Admin')

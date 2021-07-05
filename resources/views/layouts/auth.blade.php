@@ -27,6 +27,14 @@
 
 <body class="min-h-screen bg-gray-200">
 
+    @if ($reqruitment->req_status === \App\Constants\Status::INACTIVE)
+        <x-global-alert color="indigo">
+            <div class="text-sm font-medium text-white my-2">
+                📢 Saat ini pendaftaran telah ditutup, silahkan kembali jika pendaftaran telah dibuka.
+            </div>
+        </x-global-alert>
+    @endif
+    
     @yield('content')
 
     @livewireScripts
