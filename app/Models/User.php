@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,11 +40,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeWithoutAdmin($query)
+    public function scopeParticipan($query)
     {
-        return $query->whereHas('roles', function($q) {
+        return $query->whereHas('roles', function ($q) {
             $q->where('name', '<>', 'Admin');
         });
+    }
+
+    public function avatar(): Attribute
+    {
+        return new Attribute(
+            get: fn (string|null $value) => "https://ui-avatars.com/api/?name={$this->name}&amp;color=FFFFFF&amp;background=111827",
+        );
     }
 
     public function detail(): BelongsTo

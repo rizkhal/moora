@@ -19,7 +19,7 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         Role::create(['name' => 'Admin', 'guard_name' => 'web']);
-        Role::create(['name' => 'Participan', 'guard_name' => 'web']);
+        Role::create(['name' => 'Peserta', 'guard_name' => 'web']);
 
         User::create([
             'nik' => '294284294829042',
@@ -53,7 +53,7 @@ class RoleTableSeeder extends Seeder
             'city' => 8271, // ternate
             'district' => 8271030, // ternate utara
             'sub_district' => 8271030018, // sangaji utara.
-        ])->assignRole('Participan');
+        ])->assignRole('Peserta');
 
         User::create([
             'nik' => '294284294829042',
@@ -70,6 +70,6 @@ class RoleTableSeeder extends Seeder
             'city' => 8271, // ternate
             'district' => 8271030, // ternate utara
             'sub_district' => 8271030018, // sangaji utara.
-        ])->assignRole('Participan');
+        ])->assignRole('Peserta');
     }
 }

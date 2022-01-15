@@ -1,6 +1,9 @@
-const mix = require("laravel-mix");
-
-require("laravel-mix-tailwind");
+const path = require('path')
+const process = require('process')
+const mix = require('laravel-mix')
+const cssImport = require('postcss-import')
+const cssNesting = require('postcss-nesting')
+const webpackConfig = require('./webpack.config')
 
 /*
  |--------------------------------------------------------------------------
@@ -13,11 +16,15 @@ require("laravel-mix-tailwind");
  |
  */
 
-mix.js("resources/js/app.js", "public/js/app.js")
-    .sass("resources/sass/app.scss", "public/css/app.css")
-    .tailwind("./tailwind.config.js")
-    .sourceMaps();
-
-if (mix.inProduction()) {
-    mix.version();
-}
+mix
+  .js('resources/js/app.js', 'public/js')
+  .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
+  .webpackConfig(webpackConfig)
+  .postCss('resources/css/app.css', 'public/css', [
+    // prettier-ignore
+    cssImport(),
+    cssNesting(),
+    require('tailwindcss'),
+  ])
+  .version()
+  .sourceMaps()

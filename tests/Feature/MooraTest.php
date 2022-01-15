@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Umur -> upload berkas (KTP/KK)
+ * Pendidikan -> upload ijazah terakhir
+ * Kesehatan -> upload SKD
+ * Domisili -> upload berkas (KTP/KK)
+ * Surat pernyataan bukan anggota ASN / Partai Politik -> upload berkas
+ */
+
 // rumus perhitungan moora
 // @see https://cahyadsn.phpindonesia.id/extra/moora.php
 
@@ -41,8 +49,6 @@ class MooraTest extends TestCase
         // hitung pembagi
         $pembagi = $this->calculatePembagi($this->alternative);
 
-        dd($pembagi);
-        
         $this->assertEquals([
             1.7117242768624,
             1.7521415467935,
@@ -53,7 +59,7 @@ class MooraTest extends TestCase
 
         // normalisasi mtriks
         $normalize = $this->normalize($this->alternative, $pembagi);
-        
+
         $this->assertEquals([
             [0.29210311891849, 0.46736499026959, 0.58420623783699, 0.1168412475674, 0.58420623783699],
             [0.57073014553535, 0.39951110187474, 0.1712190436606, 0.57073014553535, 0.39951110187474],
@@ -61,10 +67,10 @@ class MooraTest extends TestCase
             [0.44008622942335, 0.31434730673097, 0.44008622942335, 0.56582515211574, 0.44008622942335],
             [0.3936542650441, 0.49206783130512, 0.49206783130512, 0.34444748191359, 0.49206783130512],
         ], $normalize);
-        
+
         // optimasi attribute
         $optimizedAttribute = $this->optimizeAttribute($normalize);
-        
+
         $this->assertEquals([
             [0.087630935675548, 0.14020949708088, 0.1752618713511, 0.035052374270219, 0.1752618713511],
             [0.11414602910707, 0.079902220374949, 0.034243808732121, 0.11414602910707, 0.079902220374949],
@@ -72,39 +78,23 @@ class MooraTest extends TestCase
             [0.066012934413503, 0.047152096009645, 0.066012934413503, 0.084873772817361, 0.066012934413503],
             [0.059048139756615, 0.073810174695768, 0.073810174695768, 0.051667122287038, 0.073810174695768],
         ], $optimizedAttribute);
-        
+
         // cari hasil
         $result = $this->result($optimizedAttribute);
-        
+
         $this->assertEquals([
             "max" => [
-                0.29931958678344
-                ,0.35945832031415
-                ,0.26524432122655
-                ,0.21887170480645
-                ,0.31090273286937
-              ],
-              "min" => [
-                0.12506107417012
-                ,0.12096227070541
-                ,0.13982310910927
-                ,0.1365408951044
-                ,0.13982310910927
-              ],
-              "yi" => [
-                0.17425851261333
-                ,0.23849604960874
-                ,0.12542121211727
-                ,0.082330809702052
-                ,0.1710796237601
-              ],
-              "rank" => [
-                0.23849604960874
-                ,0.17425851261333
-                ,0.1710796237601
-                ,0.12542121211727
-                ,0.082330809702052
-              ]
+                0.29931958678344, 0.35945832031415, 0.26524432122655, 0.21887170480645, 0.31090273286937
+            ],
+            "min" => [
+                0.12506107417012, 0.12096227070541, 0.13982310910927, 0.1365408951044, 0.13982310910927
+            ],
+            "yi" => [
+                0.17425851261333, 0.23849604960874, 0.12542121211727, 0.082330809702052, 0.1710796237601
+            ],
+            "rank" => [
+                0.23849604960874, 0.17425851261333, 0.1710796237601, 0.12542121211727, 0.082330809702052
+            ]
         ], $result);
     }
 
@@ -117,7 +107,7 @@ class MooraTest extends TestCase
         $count = count($optimizedAttribute);
         // mencari nilai max dan min
         for ($i = 0; $i < $count; $i++) {
-            for ($j=0; $j < $count; $j++) { 
+            for ($j = 0; $j < $count; $j++) {
                 // looping ke kanan untuk
                 // mengurutkan matriks yang 
                 // sudah dioptimasi kemudian
@@ -147,13 +137,13 @@ class MooraTest extends TestCase
             }
         }
 
-        for ($i=0; $i < count($max); $i++) { 
+        for ($i = 0; $i < count($max); $i++) {
             $yii[$i] = $max[$i] - $min[$i];
         }
 
         $rank = array_unique($yii);
-		rsort($rank);
-        
+        rsort($rank);
+
         return [
             'max' => $max,
             'min' => $min,
@@ -184,7 +174,7 @@ class MooraTest extends TestCase
 
         return $result;
     }
-    
+
     /**
      * Rumus mendapatkan pembagi dan normalisasi
      * 
@@ -217,8 +207,6 @@ class MooraTest extends TestCase
             }
             $result[] = sqrt(array_sum($tmp[$i]));
         }
-        
-        dd($result);
 
         return $result;
     }

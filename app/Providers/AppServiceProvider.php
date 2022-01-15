@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(DirectiveServiceProvider::class);
+        $this->app->register(NavigatorServiceProvider::class);
     }
 
     /**

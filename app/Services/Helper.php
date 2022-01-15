@@ -2,6 +2,13 @@
 
 use Carbon\Carbon;
 
+if (!function_exists('user')) {
+    function user()
+    {
+        return auth()->user();
+    }
+}
+
 if (!function_exists('transpose')) {
     /**
      * Format array
