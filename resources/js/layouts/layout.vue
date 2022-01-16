@@ -47,7 +47,25 @@
                         </svg>
                       </span>
 
-                      <input id="globalSearchQueryInput" placeholder="Search" type="search" autocomplete="off" class="block w-full h-10 pl-10 lg:text-lg bg-gray-400/10 placeholder-gray-500 border-transparent duration-75 rounded-lg focus:bg-white focus:placeholder-gray-400 focus:border-red-600 focus:ring-1 focus:ring-inset focus:ring-red-600" />
+                      <input
+                        id="globalSearchQueryInput"
+                        placeholder="Search"
+                        type="search"
+                        autocomplete="off"
+                        class="
+                          block
+                          w-full
+                          h-10
+                          pl-10
+                          lg:text-lg
+                          bg-gray-400/10
+                          placeholder-gray-500
+                          border-transparent
+                          duration-75
+                          rounded-lg
+                          focus:bg-white focus:placeholder-gray-400 focus:border-red-600 focus:ring-1 focus:ring-inset focus:ring-red-600
+                        "
+                      />
                     </div>
                   </div>
                 </div>
@@ -57,7 +75,7 @@
         </header>
 
         <div class="p-6 overflow-x-hidden">
-          <!-- slot -->
+          <!-- main -->
           <slot />
         </div>
       </div>
@@ -66,8 +84,8 @@
 </template>
 
 <script>
-import navigator from '@/components/navigator.vue'
-import breadcrumb from '@/components/breadcrumb.vue'
+import navigator from "@/components/navigator.vue";
+import breadcrumb from "@/components/breadcrumb.vue";
 
 export default {
   components: {
@@ -80,8 +98,8 @@ export default {
   },
   methods: {
     something() {
-      console.log('fired')
+      console.log("fired");
     },
   },
-}
+};
 </script>

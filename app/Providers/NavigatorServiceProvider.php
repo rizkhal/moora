@@ -18,26 +18,26 @@ class NavigatorServiceProvider extends ServiceProvider
             Nav::item(__('Beranda'))->for('/home')
                 ->heroicon('HomeIcon')->icon('solid'),
 
-            Nav::item(__('Data'))->subItems([
-                Nav::item(__('Partisipan'))->for('/participan')
+            Nav::item(__('Master'))->subItems([
+                Nav::item(__('Peserta'))->for('/participan')
                     ->heroicon('UserGroupIcon')->icon('solid'),
 
-                Nav::item(__('Kriteria'))->for('/logistics/master/necessity')
+                Nav::item(__('Kriteria'))->for('/criteria')
                     ->heroicon('BadgeCheckIcon')->icon('solid'),
 
-                Nav::item(__('Pengumuman'))->for('/logistics/master/supplier')
+                Nav::item(__('Pengumuman'))->for('/announcement')
                     ->heroicon('SpeakerphoneIcon')->icon('solid'),
             ]),
 
             Nav::item(__('Pengaturan'))->subItems([
-                Nav::item(__('Situs'))->for('/setting/site')
-                    ->heroicon('GlobeIcon')->icon('solid'),
-
-                Nav::item(__('Seleksi'))->for('/setting/criteria')
-                    ->heroicon('ClipboardListIcon')->icon('outline'),
-
-                Nav::item(__('Hak Akses'))->for('/setting/role')
+                Nav::item(__('Role'))->for('/setting/role')
                     ->heroicon('LockClosedIcon')->icon('solid'),
+
+                Nav::item(__('Umum'))->for('/setting/general')
+                    ->heroicon('CogIcon')->icon('solid'),
+
+                Nav::item(__('Pengguna'))->for('/setting/user')
+                    ->heroicon('UsersIcon')->icon('solid'),
             ]),
         ]);
     }

@@ -21,17 +21,18 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         Permission::create($request->validated());
-        return redirect()->back()->with('success', 'Berhasil menambah hak akses');
+        return redirect()->back()->with('success', 'Berhasil menambah permission');;
     }
 
     public function update(Permission $permission, PermissionRequest $request)
     {
         $permission->update($request->validated());
-        return redirect()->back()->with('success', 'Berhasil mengubah hak akses');
+        return redirect()->back()->with('success', 'Berhasil mengubah permission');;
     }
 
     public function destroy(Permission $permission)
     {
-        dd($permission);
+        $permission->delete();
+        return redirect()->back()->with('success', 'Berhasil menghapus permission');
     }
 }

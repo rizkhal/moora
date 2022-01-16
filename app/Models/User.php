@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -42,9 +41,12 @@ class User extends Authenticatable
 
     public function scopeParticipan($query)
     {
-        return $query->whereHas('roles', function ($q) {
-            $q->where('name', '<>', 'Admin');
-        });
+        return $query->whereHas('roles', fn (Builder $query) => $query->where('name', 'Peserta'));
+    }
+
+    public function scopeUser($query)
+    {
+        return $query->whereHas('roles', fn (Builder $query) => $query->where('name', '!=', 'Peserta'));
     }
 
     public function avatar(): Attribute
@@ -54,8 +56,8 @@ class User extends Authenticatable
         );
     }
 
-    public function detail(): BelongsTo
+    public function participan(): HasOne
     {
-        return $this->belongsTo(UserDetail::class, 'id', 'user_id');
+        return $this->hasOne(Participan::class, 'user_id', 'id');
     }
 }

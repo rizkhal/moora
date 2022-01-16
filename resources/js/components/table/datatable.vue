@@ -13,10 +13,10 @@
         <tr>
           <th class="table-heading-cell" v-if="number">NO</th>
           <th v-for="(column, heading) in columns" :key="heading" scope="col" class="table-heading-cell">
-            <div class="flex items-center" v-if="heading !== 'checkbox'" @click="sort(formatField(column.field ? column.field : heading))" :class="[column.sorting ? 'cursor-pointer' : 'cursor-default']">
-              {{ heading }}
-              <ChevronUpIcon v-if="filters && column.sorting && params.direction === 'asc' && params.field === formatField(column.field ? column.field : heading)" class="w-4 h-4 ml-2" />
-              <ChevronDownIcon v-if="filters && column.sorting && params.direction === 'desc' && params.field === formatField(column.field ? column.field : heading)" class="w-4 h-4 ml-2" />
+            <div class="flex items-center" v-if="heading !== 'checkbox'" @click="sort(formatText(column.field ? column.field : heading))" :class="[column.sorting ? 'cursor-pointer' : 'cursor-default']">
+              {{ heading.replace("_", " ") }}
+              <ChevronUpIcon v-if="filters && column.sorting && params.direction === 'asc' && params.field === formatText(column.field ? column.field : heading)" class="w-4 h-4 ml-2" />
+              <ChevronDownIcon v-if="filters && column.sorting && params.direction === 'desc' && params.field === formatText(column.field ? column.field : heading)" class="w-4 h-4 ml-2" />
             </div>
             <span v-if="heading === 'checkbox'">
               <input type="checkbox" name="all" id="all" />
@@ -58,12 +58,12 @@
   </div>
 </template>
 <script>
-import { throttle, pickBy } from 'lodash'
-import icon from '@/components/icon.vue'
-import search from '@/components/table/search.vue'
-import Filter from '@/components/table/filter.vue'
-import pagination from '@/components/table/pagination'
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/solid'
+import { throttle, pickBy } from "lodash";
+import icon from "@/components/icon.vue";
+import search from "@/components/table/search.vue";
+import Filter from "@/components/table/filter.vue";
+import pagination from "@/components/table/pagination";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/vue/solid";
 
 export default {
   components: {
@@ -94,34 +94,34 @@ export default {
         field: this.filters?.field,
         direction: this.filters?.direction,
       },
-    }
+    };
   },
   methods: {
     sort(field) {
-      if (!this.filters) return
+      if (!this.filters) return;
 
-      this.params.field = field
-      this.params.direction = this.params.direction === 'asc' ? 'desc' : 'asc'
+      this.params.field = field;
+      this.params.direction = this.params.direction === "asc" ? "desc" : "asc";
     },
-    formatField(heading) {
-      return heading.toLowerCase().replace(' ', '_')
+    formatText(text) {
+      return text.toLowerCase().replace(" ", "_");
     },
     columnsLength() {
-      return Object.keys(this.columns).length
+      return Object.keys(this.columns).length;
     },
   },
   watch: {
     params: {
       handler: throttle(function () {
-        let params = pickBy(this.params)
+        let params = pickBy(this.params);
 
         this.$inertia.get(`${window.location.pathname}`, params, {
           replace: true,
           preserveState: true,
-        })
+        });
       }, 150),
       deep: true,
     },
   },
-}
+};
 </script>

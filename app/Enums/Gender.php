@@ -4,7 +4,8 @@ namespace App\Enums;
 
 use App\Enums\Interface\HasLabel;
 
-enum Gender: int implements HasLabel {
+enum Gender: int implements HasLabel
+{
     case MALE = 0;
     case FEMALE = 1;
 

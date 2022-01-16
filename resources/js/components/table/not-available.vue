@@ -1,12 +1,15 @@
 <template>
-  <span :class="{ 'text-gray-400': value === 'N/A' }">
-    {{ value }}
+  <span :class="{ 'text-gray-400': value === null }">
+    {{ value ? value : "N/A" }}
   </span>
 </template>
 <script>
 export default {
   props: {
-    value: String,
+    value: {
+      type: String,
+      default: null,
+    },
   },
-}
+};
 </script>

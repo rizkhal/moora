@@ -48,9 +48,9 @@
   </headless-dropdown>
 </template>
 <script>
-import { MenuButton, MenuItem } from '@headlessui/vue'
-import headlessDropdown from '@/components/headless-dropdown.vue'
-import { ChevronDownIcon, FilterIcon, TrashIcon } from '@heroicons/vue/outline'
+import { MenuButton, MenuItem } from "@headlessui/vue";
+import headlessDropdown from "@/components/headless-dropdown.vue";
+import { ChevronDownIcon, FilterIcon, TrashIcon } from "@heroicons/vue/outline";
 
 export default {
   components: {
@@ -61,5 +61,5 @@ export default {
     ChevronDownIcon,
     headlessDropdown,
   },
-}
+};
 </script>
