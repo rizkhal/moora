@@ -31,14 +31,14 @@ class SettingTableSeeder extends Seeder
         ]);
 
         SettingEmail::create([
-            'mail_driver' => 'smtp',
-            'mail_host' => 'smtp.mailtrap.io',
-            'mail_port' => '2525',
-            'mail_username' => '05a3cd2df1e7e7',
-            'mail_password' => 'd3c55edc7c38f8',
-            'mail_encryption' => 'tls',
-            'mail_from_address' => 'noreply@kpu.com',
-            'mail_from_name' => 'KPU Email Broadcaster',
+            'driver' => 'smtp',
+            'host' => 'smtp.mailtrap.io',
+            'port' => '2525',
+            'username' => '660f3324f2b94f',
+            'password' => '0339def19646f1',
+            'encryption' => 'tls',
+            'from_address' => 'noreply@kpu.com',
+            'from_name' => 'KPU Email Broadcaster',
             'created_by' => 1
         ]);
 

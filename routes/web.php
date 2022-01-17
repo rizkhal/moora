@@ -10,7 +10,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\GeneralController;
 
-Route::middleware(['auth'])->group(fn (): array => [
+Route::middleware(['auth', 'verified'])->group(fn (): array => [
     Route::get('/home', [HomeController::class, 'index'])->name('home'),
     Route::resource('/criteria', CriteriaController::class),
     Route::resource('/participan', ParticipanController::class),
@@ -19,7 +19,10 @@ Route::middleware(['auth'])->group(fn (): array => [
     Route::prefix('/setting')->as('setting.')->group(fn (): array => [
         Route::resource('/role', RoleController::class),
         Route::resource('/user', UserController::class)->except('edit'),
-        Route::resource('/general', GeneralController::class),
         Route::resource('/permission', PermissionController::class)->except('edit'),
+        Route::prefix('general')->as('general.')->group(fn (): array => [
+            Route::get('/', [GeneralController::class, 'index'])->name('index'),
+            Route::post('/email/smtp', [GeneralController::class, 'email'])->name('email'),
+        ]),
     ]),
 ]);

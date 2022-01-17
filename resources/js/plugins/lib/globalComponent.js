@@ -1,6 +1,5 @@
 import helper from './helper';
 import icon from '@/components/icon.vue'
-import layout from '@/layouts/layout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3'
 
 import textInput from '@/components/text-input.vue'
@@ -16,7 +15,6 @@ export default {
     app.component('icon', icon);
     app.component('app-head', Head);
     app.component('app-link', Link);
-    app.component('app-layout', layout);
     
     app.component('text-input', textInput);
     app.component('select-input', selectInput);
