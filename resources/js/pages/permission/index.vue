@@ -1,10 +1,10 @@
 <template>
+  <!-- we can't manage permission dynamicly.. i am stuck -->
+
   <app-head title="Pengguna" />
 
   <div class="flex justify-between items-center mb-4">
-    <button class="btn-red" type="button" @click="$refs.form.openModal()">Tambah</button>
-
-    <h2 class="text-2xl font-semibold">Hak Akses</h2>
+    <h2 class="text-2xl font-semibold">Permission</h2>
   </div>
 
   <datatable :columns="columns" :data="data">

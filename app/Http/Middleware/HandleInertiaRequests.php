@@ -45,6 +45,7 @@ class HandleInertiaRequests extends Middleware
                     'name' => $request->user()->name,
                     'avatar' => $request->user()->avatar,
                     'email' => $request->user()->email,
+                    'photo' => asset('img/sample.jpg'),
                 ] : null,
             ],
             'flash' => fn (): array => [
@@ -52,9 +53,9 @@ class HandleInertiaRequests extends Middleware
                 'error' => $request->session()->get('error'),
             ],
             'site' => fn (): array => [
-                'navigator' => Nav::items(),
                 'setting' => Setting::first(),
-                'breadcrumbs' => Breadcrumbs::current()
+                'breadcrumbs' => Breadcrumbs::current(),
+                'navigator' => $request->user() ? Nav::items() : null,
             ],
         ]);
     }

@@ -23,6 +23,10 @@ class RoleTable
                 'sortable' => true,
                 'searchable' => false,
             ],
+            'description' => [
+                'sortable' => true,
+                'searchable' => false,
+            ],
             'tanggal' => [
                 'sortable' => true,
                 'searchable' => true,
@@ -40,6 +44,7 @@ class RoleTable
             'id' => $role->id,
             'name' => $role->name,
             'guard' => $role->guard_name,
+            'description' => $role->description,
             'permission' => $role->permissions->count(),
             'tanggal' => $role->created_at->format('d/m/y')
         ]);;

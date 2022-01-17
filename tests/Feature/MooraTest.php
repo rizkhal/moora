@@ -4,7 +4,6 @@
  * Umur -> upload berkas (KTP/KK)
  * Pendidikan -> upload ijazah terakhir
  * Kesehatan -> upload SKD
- * Domisili -> upload berkas (KTP/KK)
  * Surat pernyataan bukan anggota ASN / Partai Politik -> upload berkas
  */
 

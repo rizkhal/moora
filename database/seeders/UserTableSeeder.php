@@ -53,7 +53,7 @@ class UserTableSeeder extends Seeder
         $p1->participan()->create([
             'nik' => '294284294829042',
             'phone' => '081234567810',
-            'gender' => Gender::MALE->value,
+            'gender' => Gender::FEMALE->value,
             'birth_date' => '1998-01-02',
             'birth_place' => 'Ternate',
             'religion' => Religion::ISLAM->value,
@@ -73,7 +73,7 @@ class UserTableSeeder extends Seeder
         $p2->participan()->create([
             'nik' => '294848144829042',
             'phone' => '081234134810',
-            'gender' => Gender::MALE->value,
+            'gender' => Gender::FEMALE->value,
             'birth_date' => '1998-01-02',
             'birth_place' => 'Makassar',
             'religion' => Religion::ISLAM->value,

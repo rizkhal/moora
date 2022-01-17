@@ -13,19 +13,19 @@ Breadcrumbs::for(
 Breadcrumbs::for(
     'setting.general.index',
     fn (Trail $trail): Trail =>
-    $trail->push('Pengaturan')->push('Umum', route('setting.general.index'))
+    $trail->push('Umum', route('setting.general.index'))
 );
 
 Breadcrumbs::for(
     'setting.user.index',
     fn (Trail $trail): Trail =>
-    $trail->push('Pengaturan')->push('Pengguna', route('setting.user.index'))
+    $trail->push('Pengguna', route('setting.user.index'))
 );
 
 Breadcrumbs::for(
     'setting.role.index',
     fn (Trail $trail): Trail =>
-    $trail->push('Pengaturan')->push('Role', route('setting.role.index'))
+    $trail->push('Role', route('setting.role.index'))
 );
 
 Breadcrumbs::for(

@@ -4,12 +4,12 @@
     <input
       :id="id"
       ref="input"
-      v-bind="{ ...$attrs, class: null }"
-      class="form-input"
-      :class="{ error: error }"
       :type="type"
       :value="modelValue"
+      :class="{ error: error }"
+      v-bind="{ ...$attrs, class: null }"
       @input="$emit('update:modelValue', $event.target.value)"
+      class="form-input disabled:bg-gray-200 disabled:cursor-not-allowed"
     />
     <div v-if="error" class="form-error">{{ error }}</div>
   </div>
@@ -33,7 +33,7 @@ export default {
     },
     error: String,
     label: String,
-    modelValue: String,
+    modelValue: [String, Number],
   },
   emits: ["update:modelValue"],
   methods: {

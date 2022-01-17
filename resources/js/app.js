@@ -1,9 +1,8 @@
 import { createApp, h } from 'vue'
 import appLayout from './layouts/app-layout.vue';
-import authLayout from './layouts/auth-layout.vue';
+import { globalComponent } from './plugins/index';
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import { globalComponent } from './plugins/index';
 
 InertiaProgress.init()
 

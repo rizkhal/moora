@@ -48,6 +48,17 @@ class RoleController extends Controller
 
     public function update(Role $role, RoleRequest $request)
     {
-        dd($role);
+        $role->update($request->role());
+        $role->syncPermissions($request->permissions());
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+        return redirect()->back()->with('success', 'Berhasil mengubah role');
+    }
+
+    public function destroy(Role $role)
+    {
+        $role->delete();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+        return redirect()->back()->with('success', 'Berhasil menghapus role');
     }
 }

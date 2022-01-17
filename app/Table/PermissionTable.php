@@ -29,10 +29,6 @@ class PermissionTable
                 'sortable' => true,
                 'searchable' => true,
             ],
-            'action' => [
-                'sortable' => false,
-                'searchable' => false,
-            ],
         ];
     }
 

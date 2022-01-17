@@ -2,7 +2,7 @@
   <div class="flex min-h-screen w-full bg-gray-50 text-gray-700">
     <aside class="hidden fixed inset-y-0 left-0 rtl:left-auto rtl:right-0 z-20 lg:flex flex-col h-screen overflow-hidden shadow-2xl duration-300 lg:border-r w-[14rem] lg:z-0 lg:translate-x-0 translate-x-0">
       <header class="border-b shrink-0 px-6 h-[4rem] flex items-center">
-        <app-link class="text-xl font-bold tracking-tight" href="/"> SKRIPSI </app-link>
+        <app-link class="text-xl font-bold tracking-tight focus:outline-none focus:ring-2 focus:ring-red-500" href="/"> SKRIPSI </app-link>
       </header>
 
       <!-- desktop navigator -->
@@ -76,6 +76,7 @@
 
         <div class="p-6 overflow-x-hidden">
           <!-- main -->
+          <flash-message />
           <slot />
         </div>
       </div>
@@ -86,11 +87,13 @@
 <script>
 import navigator from "@/components/navigator.vue";
 import breadcrumb from "@/components/breadcrumb.vue";
+import flashMessage from "@/components/flash-message.vue";
 
 export default {
   components: {
     navigator,
     breadcrumb,
+    flashMessage,
   },
   props: {
     auth: Object,
