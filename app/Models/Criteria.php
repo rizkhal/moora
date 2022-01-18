@@ -14,4 +14,9 @@ class Criteria extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function subCriteria(): BelongsTo
+    {
+        return $this->belongsTo(SubCriteria::class, 'criteria_id', 'id');
+    }
 }

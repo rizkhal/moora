@@ -14,7 +14,7 @@
         cursor-pointer
         focus:outline-none
         hover:bg-gray-50
-        peer-checked:ring-red-400 peer-checked:ring-2 peer-checked:border-transparent
+        peer-checked:ring-blue-400 peer-checked:ring-2 peer-checked:border-transparent
       "
       >{{ label }}</label
     >
@@ -33,7 +33,7 @@ export default {
     },
     label: String,
     error: String,
-    value: [String, Number],
+    value: [String, Number, Boolean],
   },
 };
 </script>

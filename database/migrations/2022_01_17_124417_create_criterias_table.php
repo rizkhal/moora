@@ -16,9 +16,9 @@ class CreateCriteriasTable extends Migration
         Schema::create('criterias', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('weight')->comment('bobot');
-            $table->tinyInteger('weight_type')->comment('benefit or cost');
             $table->tinyText('description')->nullable();
+            $table->boolean('allow_file_upload')->default(false);
+            $table->tinyInteger('input_type')->comment('1: text 2: option');
             $table->foreignId('created_by');
             $table->timestamps();
         });
