@@ -15,13 +15,14 @@ class CompleteRegistrationController extends Controller
         $genders = collect(Gender::cases())->mapWithKeys(fn ($item) => [$item->value => Str::title($item->label())]);
 
         return inertia('participan/complete-registration', [
-            'genders' => $genders,
-            'user' => User::with('participan')->find(user()->id),
+            'genders' => $genders
         ]);
     }
 
     public function store(CompleteRegistrationRequest $request)
     {
-        dd($request->validated());
+        user()->detail()->create($request->common());
+
+        return redirect()->back();
     }
 }

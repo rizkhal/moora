@@ -32,6 +32,10 @@ class NavigatorServiceProvider extends ServiceProvider
                     ->heroicon('UserGroupIcon')->icon('solid')
                     ->when($user->can('lihat-peserta')),
 
+                Nav::item(__('Kriteria'))->for('/criteria')
+                    ->heroicon('SparklesIcon')->icon('solid')
+                    ->when($user->can('lihat-pengumuman')),
+
                 Nav::item(__('Pengumuman'))->for('/announcement')
                     ->heroicon('SpeakerphoneIcon')->icon('solid')
                     ->when($user->can('lihat-pengumuman')),

@@ -37,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
+        'avatar' => 'string',
         'email_verified_at' => 'datetime',
     ];
 
@@ -57,8 +58,8 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    public function participan(): HasOne
+    public function detail(): HasOne
     {
-        return $this->hasOne(Participan::class, 'user_id', 'id');
+        return $this->hasOne(UserDetail::class, 'user_id', 'id');
     }
 }

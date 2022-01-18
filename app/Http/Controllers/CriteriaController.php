@@ -18,8 +18,6 @@ class CriteriaController extends Controller
     {
         $types = collect(CriteriaType::cases())->mapWithKeys(fn ($item) => [$item->value => Str::title($item->name)]);
 
-        return inertia('criteria/create', [
-            'types' => $types,
-        ]);
+        return inertia('criteria/create');
     }
 }

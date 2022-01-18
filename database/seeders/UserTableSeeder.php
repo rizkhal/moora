@@ -38,10 +38,10 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret123'),
         ])->assignRole('Pimpinan');
 
-        $this->participan();
+        $this->user();
     }
 
-    private function participan()
+    private function user()
     {
         $p1 = User::create([
             'name' => 'Ayu Puspita',
@@ -50,17 +50,10 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret123'),
         ])->assignRole('Peserta');
 
-        $p1->participan()->create([
+        $p1->detail()->create([
             'nik' => '294284294829042',
             'phone' => '081234567810',
             'gender' => Gender::FEMALE->value,
-            'birth_date' => '1998-01-02',
-            'birth_place' => 'Ternate',
-            'religion' => Religion::ISLAM->value,
-            'province' => 82, // maluku utara
-            'city' => 8271, // ternate
-            'district' => 8271030, // ternate utara
-            'sub_district' => 8271030018, // sangaji utara.
         ]);
 
         $p2 = User::create([
@@ -70,17 +63,10 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret123'),
         ])->assignRole('Peserta');
 
-        $p2->participan()->create([
+        $p2->detail()->create([
             'nik' => '294848144829042',
             'phone' => '081234134810',
             'gender' => Gender::FEMALE->value,
-            'birth_date' => '1998-01-02',
-            'birth_place' => 'Makassar',
-            'religion' => Religion::ISLAM->value,
-            'province' => 82, // maluku utara
-            'city' => 8271, // ternate
-            'district' => 8271030, // ternate utara
-            'sub_district' => 8271030018, // sangaji utara.
         ]);
     }
 }
