@@ -1,13 +1,32 @@
 <?php
 
-use Spatie\Permission\Models\Role;
+use App\Models\Criteria;
 use Tabuna\Breadcrumbs\Trail;
+use Spatie\Permission\Models\Role;
 use Tabuna\Breadcrumbs\Breadcrumbs;
 
 Breadcrumbs::for(
     'participan',
     fn (Trail $trail): Trail =>
     $trail->push('Partisipan', route('participan'))
+);
+
+Breadcrumbs::for(
+    'criteria.index',
+    fn (Trail $trail): Trail =>
+    $trail->push('Kriteria', route('criteria.index'))
+);
+
+Breadcrumbs::for(
+    'criteria.create',
+    fn (Trail $trail): Trail =>
+    $trail->parent('criteria.index')->push('Tambah', route('criteria.create'))
+);
+
+Breadcrumbs::for(
+    'criteria.edit',
+    fn (Trail $trail, Criteria $criterion): Trail =>
+    $trail->parent('criteria.index')->push('Ubah', route('criteria.edit', $criterion->id))
 );
 
 Breadcrumbs::for(

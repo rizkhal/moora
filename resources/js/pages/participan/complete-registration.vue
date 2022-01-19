@@ -14,6 +14,13 @@
   <form @submit.prevent="upload">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
+        <h1 class="text-2xl font-bold underline underline-offset-4 decoration-4 decoration-red-500/60">Informasi Umum</h1>
+        <p class="leading-normal mt-4">
+          Harap masukan informasi umum anda sesuai dengan Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti natus perferendis velit hic nihil laborum similique saepe. Ut eligendi ratione
+          deleniti nulla officiis, cumque praesentium natus animi fugit quas placeat?
+        </p>
+      </div>
+      <div>
         <div class="bg-white p-6 border rounded-md shadow-md">
           <div class="flex flex-col space-y-6">
             <text-input v-model="form.name" :error="form.errors.name" label="Nama Lengkap" disabled />
@@ -28,13 +35,18 @@
         </div>
       </div>
       <div>
+        <h1 class="text-2xl font-bold underline underline-offset-4 decoration-4 decoration-red-500/60">Kriteria Kelulusan</h1>
+        <p class="leading-normal mt-4">
+          Harap masukan informasi umum anda sesuai dengan Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti natus perferendis velit hic nihil laborum similique saepe. Ut eligendi ratione
+          deleniti nulla officiis, cumque praesentium natus animi fugit quas placeat?
+        </p>
+      </div>
+      <div>
         <div class="bg-white p-4 border rounded-md shadow-md">
           <div class="flex flex-col space-y-5">
-            <file-input label="Kartu tanda penduduk" @input="form.ktp = $event.target.files[0]" :error="form.errors.ktp" accept="application/pdf" />
-            <file-input label="Kartu keluarga" @input="form.kk = $event.target.files[0]" :error="form.errors.kk" accept="application/pdf" />
-            <file-input label="Surat keterangan dokter" @input="form.skd = $event.target.files[0]" :error="form.errors.skd" accept="application/pdf" />
-            <file-input label="Kartu pernyataan" @input="form.sp = $event.target.files[0]" :error="form.errors.sp" accept="application/pdf" />
-            <file-input label="Surat kelakuan baik" @input="form.skck = $event.target.files[0]" :error="form.errors.skck" accept="application/pdf" />
+            <div v-for="(criteria, index) in criterias" :key="index">
+              <file-input v-if="criteria.allow_file_upload" :label="criteria.name" @input="form.ktp = $event.target.files[0]" :error="form.errors.ktp" accept="application/pdf" />
+            </div>
           </div>
         </div>
       </div>
@@ -47,6 +59,7 @@ export default {
   props: {
     auth: Object,
     genders: Object,
+    criterias: Object,
   },
   data() {
     return {

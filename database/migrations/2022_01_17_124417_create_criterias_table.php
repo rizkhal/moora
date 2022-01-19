@@ -17,8 +17,8 @@ class CreateCriteriasTable extends Migration
             $table->id();
             $table->string('name');
             $table->tinyText('description')->nullable();
-            $table->boolean('allow_file_upload')->default(false);
-            $table->tinyInteger('input_type')->comment('1: text 2: option');
+            $table->boolean('allow_file_upload')->default(false)->comment('always false if input type file');
+            $table->tinyInteger('input_type')->comment('1: text 2: option 3: file');
             $table->foreignId('created_by');
             $table->timestamps();
         });

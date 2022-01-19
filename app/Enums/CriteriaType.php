@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum CriteriaType: int
 {
-    case TEXT = 1;
-    case OPTION = 2;
+    case Text = 1;
+    case Option = 2;
+    case File = 3;
 }

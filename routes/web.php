@@ -15,6 +15,7 @@ Route::middleware(['auth', 'verified'])->group(fn (): array => [
     Route::get('/home', [HomeController::class, 'index'])->name('home'),
     Route::resource('/criteria', CriteriaController::class),
     Route::resource('/participan', ParticipanController::class),
+    Route::get('/participan/verification', [ParticipanController::class, 'verification']),
     Route::resource('/announcement', AnnouncementController::class),
 
     Route::prefix('/setting')->as('setting.')->group(fn (): array => [
@@ -27,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(fn (): array => [
         ]),
     ]),
 
-    Route::prefix('/participan')->as('participan.')->group(fn (): array => [
+    Route::prefix('/participan')->as('participan.')->middleware('role:Peserta')->group(fn (): array => [
         Route::get('/complete-registration', [CompleteRegistrationController::class, 'view'])->name('complete-registration'),
         Route::post('/complete-registration', [CompleteRegistrationController::class, 'store'])->name('store.complete-registration'),
     ]),

@@ -25,18 +25,15 @@ class CriteriaRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd(request()->options);
-
         $criteria = [
             'name' => ['required'],
             'description' => ['nullable'],
             'allow_file_upload' => ['nullable'],
-            'input_type' => ['required'], // text or option
+            'input_type' => ['required'], // text, option or file
         ];
 
         if ($this->isText()) {
             $validate = [
-                'texts.label' => ['required'],
                 'texts.value' => ['required'],
                 'texts.value_type' => ['required'],
             ];
@@ -44,10 +41,16 @@ class CriteriaRequest extends FormRequest
 
         if ($this->isOption()) {
             $validate = [
-                'options.label' => ['required'],
-                'options.items.*.text' => ['required'],
-                'options.items.*.value' => ['required'],
-                'options.items.*.value_type' => ['required'],
+                'options.*.text' => ['required'],
+                'options.*.value' => ['required'],
+                'options.*.value_type' => ['required'],
+            ];
+        }
+
+        if ($this->isFile()) {
+            $validate = [
+                'files.value' => ['required'],
+                'files.value_type' => ['required'],
             ];
         }
 
@@ -66,11 +69,16 @@ class CriteriaRequest extends FormRequest
 
     public function isText(): bool
     {
-        return (int)$this->input_type === CriteriaType::TEXT->value;
+        return (int)$this->input_type === CriteriaType::Text->value;
     }
 
     public function isOption(): bool
     {
-        return (int)$this->input_type === CriteriaType::OPTION->value;
+        return (int)$this->input_type === CriteriaType::Option->value;
+    }
+
+    public function isFile(): bool
+    {
+        return (int)$this->input_type === CriteriaType::File->value;
     }
 }

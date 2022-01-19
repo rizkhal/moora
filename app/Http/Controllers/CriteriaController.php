@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use Inertia\Response;
+use App\Models\Criteria;
 use App\Enums\WeightType;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\CriteriaDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CriteriaRequest;
-use App\Models\Criteria;
+use App\Table\CriteriaTable;
 
 class CriteriaController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request, CriteriaTable $datatable): Response
     {
-        return inertia('criteria/index');
+        return inertia('criteria/index', [
+            'columns' => $datatable->columns(),
+            'data' => $datatable->query($request),
+        ]);
     }
 
     public function create()
@@ -33,14 +37,28 @@ class CriteriaController extends Controller
         try {
             $criteria = Criteria::create($request->criteria());
             if ($request->isText()) {
-                $criteria->subCriteria()->create($request->texts);
+                $criteria->detail()->create($request->texts);
             }
 
-            if ($this->isOption()) {
-                $criteria->subCriteria()->create($request->options);
+            if ($request->isOption()) {
+                collect($request->options)->each(fn ($field): CriteriaDetail => $criteria->detail()->create($field));
             }
+
+            if ($request->isFile()) {
+                $criteria->detail()->create($request->get('files'));
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Berhasil menambah kriteria');
         } catch (\Throwable $th) {
-            dd($th);
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
         }
+    }
+
+    public function edit(Criteria $criterion): Response
+    {
+        return inertia('criteria/edit');
     }
 }
