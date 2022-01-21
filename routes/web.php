@@ -10,13 +10,16 @@ use App\Http\Controllers\ParticipanController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Acl\PermissionController;
 use App\Http\Controllers\CompleteRegistrationController;
+use App\Http\Controllers\EvaluationController;
 
 Route::middleware(['auth', 'verified'])->group(fn (): array => [
     Route::get('/home', [HomeController::class, 'index'])->name('home'),
     Route::resource('/criteria', CriteriaController::class),
     Route::resource('/participan', ParticipanController::class),
-    Route::get('/participan/verification', [ParticipanController::class, 'verification']),
     Route::resource('/announcement', AnnouncementController::class),
+    Route::prefix('/evaluation')->as('evaluation.')->group(fn (): array => [
+        Route::get('/', [EvaluationController::class, 'index'])->name('index'),
+    ]),
 
     Route::prefix('/setting')->as('setting.')->group(fn (): array => [
         Route::resource('/role', RoleController::class),

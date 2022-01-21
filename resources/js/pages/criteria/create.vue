@@ -5,14 +5,30 @@
     <div class="flex flex-col space-y-6 bg-white p-4 rounded-md shadow-md border">
       <text-input label="Nama" v-model="form.name" :error="form.errors.name" />
 
-      <span>Jenis Input</span>
-      <div class="flex items-center space-x-4">
-        <radio-input :error="form.input_type" @input="form.input_type = $event.target.value" class="-mt-4" v-for="(type, index) in types" :key="index" :label="index" :value="type" />
+      <div class="flex flex-col space-y-4">
+        <div class="flex-none">
+          <label class="inline-flex items-center">
+            <input v-model="form.allow_file_upload" type="checkbox" class="form-checkbox h-5 w-5 text-red-600 border-gray-400 focus:outline-none focus:ring-0" />
+            <span class="ml-2 text-gray-700">Izinkan upload file</span>
+          </label>
+        </div>
+        <div v-for="(option, index) in form.options" :key="index" class="flex flex-col md:flex-row gap-4">
+          <text-input class="w-full" label="Text" v-model="option.text" :error="form.errors[`options.${index}.text`]" />
+          <text-input class="w-full" label="Bobot" type="number" v-model="option.value" :error="form.errors[`options.${index}.value`]" />
+          <select-input class="w-full" v-model="option.value_type" :error="form.errors[`options.${index}.value_type`]" label="Jenis Kriteria">
+            <option :value="null" />
+            <option v-for="(type, value) in weightTypes" :key="value" :value="value">{{ type }}</option>
+          </select-input>
+          <div class="flex-none">
+            <button @click.prevent="remove(index)" :disabled="form.options.length === 1" class="disabled:opacity-75 disabled:cursor-not-allowed btn-red btn-ring md:w-12 w-full md:mt-6 py-3">
+              <icon name="XIcon" type="solid" class="w-4" />
+            </button>
+          </div>
+        </div>
+        <div class="flex-none">
+          <button @click.prevent="clone" class="btn-red btn-ring">Duplikat</button>
+        </div>
       </div>
-
-      <type-text v-if="form.input_type == types.text" :form="form" :weights="weightTypes" />
-      <type-option v-if="form.input_type == types.option" :form="form" :weights="weightTypes" />
-      <type-file v-if="form.input_type == types.file" :form="form" :weights="weightTypes" />
 
       <textarea-input label="Keterangan" v-model="form.description" :error="form.errors.description" />
       <loading-button @click.prevent="store" :loading="form.processing" class="btn-red ml-auto" type="button">Simpan</loading-button>
@@ -20,16 +36,7 @@
   </div>
 </template>
 <script>
-import typeFile from "./input/type-file.vue";
-import typeText from "./input/type-text.vue";
-import typeOption from "./input/type-option.vue";
-
 export default {
-  components: {
-    typeFile,
-    typeText,
-    typeOption,
-  },
   props: {
     weightTypes: Object,
   },
@@ -41,21 +48,11 @@ export default {
         description: null,
         allow_file_upload: false,
         options: [],
-        texts: {
-          value: null,
-          value_type: null,
-        },
-        files: {
-          value: null,
-          value_type: null,
-        },
       }),
-      types: {
-        text: 1,
-        option: 2,
-        file: 3,
-      },
     };
+  },
+  created() {
+    this.clone();
   },
   methods: {
     store() {
@@ -67,6 +64,16 @@ export default {
           console.log(error);
         },
       });
+    },
+    clone() {
+      this.form.options.push({
+        text: null,
+        value: null,
+        value_type: null,
+      });
+    },
+    remove(index) {
+      this.form.options.splice(index, 1);
     },
   },
 };

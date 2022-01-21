@@ -6,9 +6,9 @@ use Spatie\Permission\Models\Role;
 use Tabuna\Breadcrumbs\Breadcrumbs;
 
 Breadcrumbs::for(
-    'participan',
+    'participan.index',
     fn (Trail $trail): Trail =>
-    $trail->push('Partisipan', route('participan'))
+    $trail->push('Peserta', route('participan.index'))
 );
 
 Breadcrumbs::for(

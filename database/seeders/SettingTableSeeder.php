@@ -44,7 +44,7 @@ class SettingTableSeeder extends Seeder
 
         SettingReqruitment::create([
             'pas_min' => 65.00,
-            'req_status' => Status::ACTIVE->value, // status penerimaan
+            'req_status' => Status::Active->value, // status penerimaan
             'created_by' => 1
         ]);
     }

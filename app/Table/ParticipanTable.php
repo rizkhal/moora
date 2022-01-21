@@ -27,6 +27,10 @@ class ParticipanTable
                 'sortable' => true,
                 'searchable' => true,
             ],
+            'action' => [
+                'sortable' => false,
+                'searchable' => false,
+            ],
         ];
     }
 

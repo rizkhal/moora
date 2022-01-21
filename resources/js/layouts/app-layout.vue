@@ -9,7 +9,7 @@
       <navigator :navigator="site.navigator" />
 
       <footer class="border-t px-6 py-3 flex shrink-0 items-center gap-3">
-        <img :src="auth.user.avatar" class="w-11 h-11 rounded-full bg-cover bg-center" />
+        <img :src="profilePicture" class="w-11 h-11 rounded-full bg-cover bg-center" />
 
         <div>
           <p class="text-sm font-bold">{{ auth.user.name }}</p>
@@ -98,6 +98,16 @@ export default {
   props: {
     auth: Object,
     site: Object,
+  },
+  data() {
+    return {
+      profilePicture: null,
+    };
+  },
+  created() {
+    let path = this.auth.user.detail ? this.auth.user.detail.picture : "img/sample.jpg";
+
+    this.profilePicture = `${this.$helper.appUrl}/${path}`;
   },
   methods: {
     something() {

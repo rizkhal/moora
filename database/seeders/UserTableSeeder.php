@@ -50,11 +50,11 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret123'),
         ])->assignRole('Peserta');
 
-        $p1->detail()->create([
-            'nik' => '294284294829042',
-            'phone' => '081234567810',
-            'gender' => Gender::FEMALE->value,
-        ]);
+        // $p1->detail()->create([
+        //     'nik' => '294284294829042',
+        //     'phone' => '081234567810',
+        //     'gender' => Gender::FEMALE->value,
+        // ]);
 
         $p2 = User::create([
             'name' => 'Mia Khalifa',
@@ -63,10 +63,10 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret123'),
         ])->assignRole('Peserta');
 
-        $p2->detail()->create([
-            'nik' => '294848144829042',
-            'phone' => '081234134810',
-            'gender' => Gender::FEMALE->value,
-        ]);
+        // $p2->detail()->create([
+        //     'nik' => '294848144829042',
+        //     'phone' => '081234134810',
+        //     'gender' => Gender::FEMALE->value,
+        // ]);
     }
 }

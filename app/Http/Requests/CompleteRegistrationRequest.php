@@ -2,7 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Criteria;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\FileBag;
 
 class CompleteRegistrationRequest extends FormRequest
 {
@@ -21,13 +26,25 @@ class CompleteRegistrationRequest extends FormRequest
         return [
             'phone' => 'nomor hp',
             'gender' => 'jenis kelamin',
-            'profile_picture' => 'pas foto',
-            'ktp' => 'kartu tanda penduduk',
-            'kk' => 'kartu keluarga',
-            'skd' => 'surat keterangan dokter',
-            'sp' => 'surat peringatan',
-            'skck' => 'surat kelakuan baik',
+            'picture' => 'pas foto',
         ];
+    }
+
+    public function criteriaOption(): array
+    {
+        return array_filter(collect($this->validateCriteria())->keys()->mapWithKeys(function ($value) {
+            return [$value => $this->{$value} instanceof UploadedFile ? null : $this->{$value}];
+        })->all(), fn ($value): bool => $value != null);
+    }
+
+    public function validateCriteria(): array
+    {
+        return Criteria::all('name')->mapWithKeys(
+            fn ($value) => [
+                Str::replace(' ', '_', Str::lower($value->name)) => ['required'],
+                Str::replace(' ', '_', Str::lower(Str::title($value->name)) . '_file') => ['required', 'mimetypes:application/pdf']
+            ]
+        )->all();
     }
 
     /**
@@ -37,17 +54,12 @@ class CompleteRegistrationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        return array_merge([
             'nik' => ['required', 'integer'],
-            'phone' => ['required', 'integer'],
             'gender' => ['required', 'in:0,1'],
-            'profile_picture' => ['required', 'mimes:jpg,png'],
-            'ktp' => ['required', 'mimetypes:application/pdf'],
-            'kk' => ['required', 'mimetypes:application/pdf'],
-            'skd' => ['required', 'mimetypes:application/pdf'],
-            'sp' => ['required', 'mimetypes:application/pdf'],
-            'skck' => ['required', 'mimetypes:application/pdf'],
-        ];
+            'picture' => ['required', 'mimes:jpg,png'],
+            'phone' => ['required', 'integer', 'unique:user_details'],
+        ], $this->validateCriteria());
     }
 
     public function common()
@@ -56,18 +68,6 @@ class CompleteRegistrationRequest extends FormRequest
             'nik' => $this->nik,
             'phone' => $this->phone,
             'gender' => $this->gender,
-        ];
-    }
-
-    public function attachment(): array
-    {
-        return [
-            'profile_picture' => $this->profile_picture,
-            'ktp' => $this->ktp,
-            'kk' => $this->kk,
-            'skd' => $this->skd,
-            'sp' => $this->sp,
-            'skck' => $this->skck,
         ];
     }
 }

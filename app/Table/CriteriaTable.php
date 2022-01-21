@@ -3,7 +3,6 @@
 namespace App\Table;
 
 use App\Models\Criteria;
-use App\Enums\CriteriaType;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -12,23 +11,19 @@ class CriteriaTable
     public function columns(): array
     {
         return [
-            'name' => [
+            'nama' => [
                 'sortable' => true,
                 'searchable' => true,
             ],
-            'allow file upload' => [
+            'upload_file' => [
                 'sortable' => true,
                 'searchable' => false,
             ],
-            'input type' => [
-                'sortable' => true,
-                'searchable' => false,
-            ],
-            'description' => [
+            'keterangan' => [
                 'sortable' => true,
                 'searchable' => true,
             ],
-            'created_at' => [
+            'tanggal' => [
                 'sortable' => true,
                 'searchable' => true,
             ],
@@ -44,11 +39,10 @@ class CriteriaTable
         return Criteria::query()
             ->paginate(10)->withQueryString()->through(fn ($criteria) => [
                 'id' => $criteria->id,
-                'name' => $criteria->name,
-                'description' => $criteria->description,
-                'input type' => CriteriaType::from($criteria->input_type)->name,
-                'allow file upload' => $criteria->allow_file_upload,
-                'created_at' => $criteria->created_at->format('d/m/y'),
+                'nama' => $criteria->name,
+                'keterangan' => $criteria->description,
+                'upload_file' => $criteria->allow_file_upload,
+                'tanggal' => $criteria->created_at->format('d/m/y'),
             ]);
     }
 }

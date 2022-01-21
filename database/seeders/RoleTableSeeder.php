@@ -55,8 +55,7 @@ class RoleTableSeeder extends Seeder
         Permission::create(['name' => 'hapus-pengumuman', 'description' => 'Hapus pengumuman', 'type' => PermissionType::DELETE->value]);
 
         // verifikasi
-        Permission::create(['name' => 'lihat-verivakasi', 'description' => 'Lihat verifikasi', 'type' => PermissionType::READ->value]);
-        Permission::create(['name' => 'verikasi-peserta', 'description' => 'Verifikasi peserta', 'type' => PermissionType::CREATE->value]);
+        Permission::create(['name' => 'lihat-penilaian', 'description' => 'Lihat penilaian', 'type' => PermissionType::READ->value]);
 
         Role::findByName('Admin')->syncPermissions(Permission::all());
 

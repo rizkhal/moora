@@ -4,7 +4,7 @@
       <div></div>
       <div class="flex items-center space-x-2">
         <search />
-        <Filter />
+        <!-- <Filter /> -->
       </div>
     </div>
 
@@ -61,14 +61,14 @@
 import { throttle, pickBy } from "lodash";
 import icon from "@/components/icon.vue";
 import search from "@/components/table/search.vue";
-import Filter from "@/components/table/filter.vue";
+// import Filter from "@/components/table/filter.vue";
 import pagination from "@/components/table/pagination";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/vue/solid";
 
 export default {
   components: {
     icon,
-    Filter,
+    // Filter,
     search,
     pagination,
     ChevronUpIcon,

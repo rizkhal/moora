@@ -14,9 +14,9 @@ class NavigatorServiceProvider extends ServiceProvider
                 Nav::item(__('Dashboard'))->for('/home')
                     ->heroicon('HomeIcon')->icon('solid'),
 
-                Nav::item(__('Verifikasi'))->for('/participan/verification')
+                Nav::item(__('Penilaian'))->for('/evaluation')
                     ->heroicon('BadgeCheckIcon')->icon('solid')
-                    ->when($user->can('lihat-verivakasi')),
+                    ->when($user->can('lihat-penilaian')),
 
                 Nav::item(__('Upload Berkas'))->for('/participan/complete-registration')
                     ->heroicon('SparklesIcon')->icon('solid')

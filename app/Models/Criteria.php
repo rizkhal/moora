@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Criteria extends Model
 {
@@ -20,7 +22,7 @@ class Criteria extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function detail(): HasMany
+    public function details(): HasMany
     {
         return $this->hasMany(CriteriaDetail::class, 'criteria_id');
     }

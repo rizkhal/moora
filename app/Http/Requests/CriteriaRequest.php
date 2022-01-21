@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CriteriaType;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,60 +24,22 @@ class CriteriaRequest extends FormRequest
      */
     public function rules(): array
     {
-        $criteria = [
+        return [
             'name' => ['required'],
             'description' => ['nullable'],
             'allow_file_upload' => ['nullable'],
-            'input_type' => ['required'], // text, option or file
+            'options.*.text' => ['required'],
+            'options.*.value' => ['required'],
+            'options.*.value_type' => ['required'],
         ];
-
-        if ($this->isText()) {
-            $validate = [
-                'texts.value' => ['required'],
-                'texts.value_type' => ['required'],
-            ];
-        }
-
-        if ($this->isOption()) {
-            $validate = [
-                'options.*.text' => ['required'],
-                'options.*.value' => ['required'],
-                'options.*.value_type' => ['required'],
-            ];
-        }
-
-        if ($this->isFile()) {
-            $validate = [
-                'files.value' => ['required'],
-                'files.value_type' => ['required'],
-            ];
-        }
-
-        return array_merge($criteria, $validate ?? []);
     }
 
     public function criteria(): array
     {
         return [
             'name' => $this->name,
-            'input_type' => (int)$this->input_type, // text or option
             'description' => $this->description,
             'allow_file_upload' => (bool)$this->allow_file_upload,
         ];
-    }
-
-    public function isText(): bool
-    {
-        return (int)$this->input_type === CriteriaType::Text->value;
-    }
-
-    public function isOption(): bool
-    {
-        return (int)$this->input_type === CriteriaType::Option->value;
-    }
-
-    public function isFile(): bool
-    {
-        return (int)$this->input_type === CriteriaType::File->value;
     }
 }
