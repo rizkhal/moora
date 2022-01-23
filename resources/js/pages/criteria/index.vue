@@ -1,5 +1,5 @@
 <template>
-  <app-head title="Participan" />
+  <app-head title="Kriteria" />
 
   <div class="flex justify-between items-center mb-4">
     <div class="flex space-x-2">
@@ -19,6 +19,9 @@
         <icon name="XCircleIcon" type="solid" class="text-red-500 w-4 h-4" />
         <span>disabled</span>
       </div>
+    </template>
+    <template #jenis_bobot="{ item: { jenis_bobot } }">
+      {{ jenis_bobot.toLowerCase() }}
     </template>
     <template #keterangan="{ item: { description } }">
       <not-available :value="description" />

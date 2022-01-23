@@ -1,5 +1,5 @@
 <template>
-  <app-head title="Participan" />
+  <app-head title="Pengaturan pengguna" />
 
   <div class="flex justify-between items-center mb-4">
     <button class="btn-red" type="button" @click="$refs.form.openModal()">Tambah</button>

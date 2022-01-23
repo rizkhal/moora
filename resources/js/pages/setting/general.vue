@@ -1,4 +1,6 @@
 <template>
+  <app-head title="Pengaturan umum" />
+
   <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
     <div>
       <div class="bg-white rounded-md shadow-md border p-4">

@@ -4,6 +4,11 @@
   <div class="flex flex-col space-y-4">
     <div class="flex flex-col space-y-6 bg-white p-4 rounded-md shadow-md border">
       <text-input label="Nama" v-model="form.name" :error="form.errors.name" />
+      <text-input label="Bobot" type="number" v-model="form.weight" :error="form.errors.weight" />
+      <select-input class="w-full" v-model="form.weight_type" :error="form.errors.weight_type" label="Jenis">
+        <option :value="null" />
+        <option v-for="(type, value) in weightTypes" :key="value" :value="value">{{ type }}</option>
+      </select-input>
 
       <div class="flex flex-col space-y-4">
         <div class="flex-none">
@@ -14,11 +19,7 @@
         </div>
         <div v-for="(option, index) in form.options" :key="index" class="flex flex-col md:flex-row gap-4">
           <text-input class="w-full" label="Text" v-model="option.text" :error="form.errors[`options.${index}.text`]" />
-          <text-input class="w-full" label="Bobot" type="number" v-model="option.value" :error="form.errors[`options.${index}.value`]" />
-          <select-input class="w-full" v-model="option.value_type" :error="form.errors[`options.${index}.value_type`]" label="Jenis Kriteria">
-            <option :value="null" />
-            <option v-for="(type, value) in weightTypes" :key="value" :value="value">{{ type }}</option>
-          </select-input>
+          <text-input class="w-full" label="Bobot" type="number" v-model="option.weight" :error="form.errors[`options.${index}.weight`]" />
           <div class="flex-none">
             <button @click.prevent="remove(index)" :disabled="form.options.length === 1" class="disabled:opacity-75 disabled:cursor-not-allowed btn-red btn-ring md:w-12 w-full md:mt-6 py-3">
               <icon name="XIcon" type="solid" class="w-4" />
@@ -44,8 +45,10 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
+        id: this.criteria.id,
         name: this.criteria.name,
-        input_type: this.criteria.input_type,
+        weight: this.criteria.weight,
+        weight_type: this.criteria.weight_type,
         description: this.criteria.description,
         allow_file_upload: this.criteria.allow_file_upload,
         options: [],
@@ -57,8 +60,7 @@ export default {
       this.form.options.push({
         id: value.id,
         text: value.text,
-        value: value.value,
-        value_type: value.value_type,
+        weight: value.weight,
       });
     });
   },

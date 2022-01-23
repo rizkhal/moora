@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Enums\Gender;
 use Inertia\Response;
 use App\Models\Criteria;
@@ -38,42 +37,44 @@ class CompleteRegistrationController extends Controller
         DB::beginTransaction();
 
         try {
-            user()->detail()->create($request->common());
+            user()->detail()->create($request->commonValidatedData());
 
-            if ($request->files) {
-                if (!Storage::exists(user()->detail->nik)) {
-                    Storage::makeDirectory(user()->detail->nik);
+            // create directory if not exists
+            if (!Storage::exists(user()->detail->nik)) {
+                Storage::makeDirectory(user()->detail->nik);
+            }
+
+            $pictureFile = $request->file('picture');
+
+            $picture = $pictureFile->storeAs(
+                user()->detail->nik,
+                user()->detail->nik . "." . $pictureFile->getClientOriginalExtension()
+            );
+
+            user()->detail()->update(['picture' => $picture]);
+
+            $criteria = $request->getDynamicCriteria();
+
+            collect($criteria['texts'])->map(function ($value, $key) use ($request, $criteria) {
+                $file = $criteria['files'][$key];
+
+                if ($request->hasFile($criteria['files'][$key])) {
+                    $paths =  $request->{$file}->storeAs(user()->detail->nik, "{$key}.pdf");
                 }
 
-                $pictureFile = $request->file('picture');
+                DB::table('user_has_criterias')->insert([
+                    'user_id' => user()->id,
+                    'model_type' => Criteria::class,
+                    'criteria_id' => CriteriaDetail::find($request->{$value})->criteria_id,
+                ]);
 
-                $picture = $pictureFile->storeAs(
-                    user()->detail->nik,
-                    user()->detail->nik . "." . $pictureFile->getClientOriginalExtension()
-                );
-
-                collect($request->files)->map(function ($value, $key) use ($request) {
-                    if ($key !== 'picture') {
-                        $paths =  $request->{$key}->storeAs(user()->detail->nik, "{$key}.pdf");
-                        preg_match('/^([^+]+)(_.*)/', $key, $match);
-
-                        DB::table('user_has_criteria_details')->insert([
-                            'user_id' => user()->id,
-                            'model_type' => User::class,
-                            'criteria_detail_id' => $request->criteriaOption()[$match[1]],
-                            'file' => $paths,
-                        ]);
-
-                        DB::table('user_has_criterias')->insert([
-                            'user_id' => user()->id,
-                            'model_type' => User::class,
-                            'criteria_id' => CriteriaDetail::find($request->criteriaOption()[$match[1]])->criteria_id,
-                        ]);
-                    }
-                });
-
-                user()->detail()->update(['picture' => $picture]);
-            }
+                DB::table('user_has_criteria_details')->insert([
+                    'user_id' => user()->id,
+                    'file' => $paths ?? null,
+                    'model_type' => CriteriaDetail::class,
+                    'criteria_detail_id' => $request->{$value},
+                ]);
+            });
 
             DB::commit();
 

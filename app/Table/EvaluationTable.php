@@ -2,28 +2,56 @@
 
 namespace App\Table;
 
+use App\Models\User;
 use App\Models\Criteria;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Services\MooraQuery;
+use App\Services\MooraFormula;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Builder;
 
 class EvaluationTable
 {
+    public function execute()
+    {
+        $query = MooraQuery::query();
+
+        $grouped = $query->groupBy('user_id');
+        $matrix = $grouped->map(function ($object) {
+            return $object->map(function ($pariticpan) {
+                return $pariticpan->user_criteria_detail_weight;
+            });
+        });
+
+        $criteria = Criteria::all();
+
+        $formula = new MooraFormula($matrix);
+        $divider = $formula->divider();
+        $normalized = $formula->normalize($divider);
+        $optimized = $formula->optimize($criteria->pluck('weight'), $normalized);
+        $result = $formula->result($criteria->pluck('weight_type'), $optimized);
+
+        $user = User::whereHas('roles', fn ($query) => $query->whereName('Peserta'))->get();
+
+        return [
+            'criteria' => $criteria,
+            'divider' => $divider,
+            'normalized' => $normalized,
+            'user' => $user,
+        ];
+    }
+
     public function columns(): array
     {
         return [
-            'nama' => [
+            'nama peserta' => [
                 'sortable' => true,
                 'searchable' => true,
             ],
-            'upload_file' => [
+            'skor' => [
                 'sortable' => true,
                 'searchable' => false,
             ],
-            'keterangan' => [
-                'sortable' => true,
-                'searchable' => true,
-            ],
-            'tanggal' => [
+            'rangking' => [
                 'sortable' => true,
                 'searchable' => true,
             ],
@@ -32,17 +60,5 @@ class EvaluationTable
                 'searchable' => false,
             ],
         ];
-    }
-
-    public function query(Request $request): LengthAwarePaginator
-    {
-        return Criteria::query()
-            ->paginate(10)->withQueryString()->through(fn ($criteria) => [
-                'id' => $criteria->id,
-                'nama' => $criteria->name,
-                'keterangan' => $criteria->description,
-                'upload_file' => $criteria->allow_file_upload,
-                'tanggal' => $criteria->created_at->format('d/m/y'),
-            ]);
     }
 }

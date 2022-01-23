@@ -18,6 +18,8 @@ class CreateCriteriasTable extends Migration
             $table->string('name');
             $table->tinyText('description')->nullable();
             $table->boolean('allow_file_upload')->default(false);
+            $table->float('weight')->comment('bobot');
+            $table->tinyInteger('weight_type')->comment('1:cost 2:benefit');
             $table->foreignId('created_by');
             $table->timestamps();
         });

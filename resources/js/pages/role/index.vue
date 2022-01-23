@@ -1,5 +1,5 @@
 <template>
-  <app-head title="Pengguna" />
+  <app-head title="Pengaturan role" />
 
   <div class="flex justify-between items-center mb-4">
     <div class="flex space-x-2">

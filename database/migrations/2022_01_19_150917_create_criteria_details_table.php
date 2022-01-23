@@ -17,8 +17,7 @@ class CreateCriteriaDetailsTable extends Migration
             $table->id();
             $table->foreignId('criteria_id')->constrained('criterias')->onDelete('cascade');
             $table->string('text')->nullable()->comment('select option text');
-            $table->float('value')->comment('bobot');
-            $table->tinyInteger('value_type')->comment('1:benefit 2:cost');
+            $table->float('weight')->comment('bobot');
             $table->foreignId('created_by');
             $table->timestamps();
         });

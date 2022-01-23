@@ -1163,14 +1163,11 @@ select {
 .w-3 {
   width: 0.75rem;
 }
-.w-64 {
-  width: 16rem;
-}
 .w-32 {
   width: 8rem;
 }
-.w-14 {
-  width: 3.5rem;
+.w-64 {
+  width: 16rem;
 }
 .min-w-full {
   min-width: 100%;
@@ -1433,14 +1430,6 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(227 160 8 / var(--tw-bg-opacity));
 }
-.bg-green-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(188 240 218 / var(--tw-bg-opacity));
-}
-.bg-green-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
-}
 .bg-opacity-20 {
   --tw-bg-opacity: 0.2;
 }
@@ -1485,6 +1474,9 @@ select {
 }
 .p-1 {
   padding: 0.25rem;
+}
+.p-\[2px\] {
+  padding: 2px;
 }
 .py-4 {
   padding-top: 1rem;
@@ -1538,6 +1530,18 @@ select {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+.py-\[2px\] {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.py-\[1px\] {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.px-\[3px\] {
+  padding-left: 3px;
+  padding-right: 3px;
+}
 .pt-3 {
   padding-top: 0.75rem;
 }
@@ -1564,6 +1568,12 @@ select {
 }
 .pl-2 {
   padding-left: 0.5rem;
+}
+.pl-5 {
+  padding-left: 1.25rem;
+}
+.pl-6 {
+  padding-left: 1.5rem;
 }
 .text-left {
   text-align: left;
@@ -1604,6 +1614,10 @@ select {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
 .font-medium {
   font-weight: 500;
 }
@@ -1637,11 +1651,11 @@ select {
 .leading-relaxed {
   line-height: 1.625;
 }
-.leading-normal {
-  line-height: 1.5;
-}
 .leading-snug {
   line-height: 1.375;
+}
+.leading-normal {
+  line-height: 1.5;
 }
 .tracking-wider {
   letter-spacing: 0.05em;
@@ -1709,13 +1723,29 @@ select {
   --tw-text-opacity: 1;
   color: rgb(14 159 110 / var(--tw-text-opacity));
 }
-.text-green-200 {
-  --tw-text-opacity: 1;
-  color: rgb(188 240 218 / var(--tw-text-opacity));
-}
 .text-green-400 {
   --tw-text-opacity: 1;
   color: rgb(49 196 141 / var(--tw-text-opacity));
+}
+.text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(155 28 28 / var(--tw-text-opacity));
+}
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(249 128 128 / var(--tw-text-opacity));
+}
+.text-red-900 {
+  --tw-text-opacity: 1;
+  color: rgb(119 29 29 / var(--tw-text-opacity));
+}
+.text-red-100 {
+  --tw-text-opacity: 1;
+  color: rgb(253 232 232 / var(--tw-text-opacity));
+}
+.text-green-200 {
+  --tw-text-opacity: 1;
+  color: rgb(188 240 218 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;

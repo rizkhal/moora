@@ -25,12 +25,13 @@ class CriteriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'name' => ['required', Rule::unique('criterias', 'name')->ignore(request()->get('id'))],
             'description' => ['nullable'],
             'allow_file_upload' => ['nullable'],
+            'weight' => ['required'],
+            'weight_type' => ['required'],
             'options.*.text' => ['required'],
-            'options.*.value' => ['required'],
-            'options.*.value_type' => ['required'],
+            'options.*.weight' => ['required'],
         ];
     }
 
@@ -40,6 +41,8 @@ class CriteriaRequest extends FormRequest
             'name' => $this->name,
             'description' => $this->description,
             'allow_file_upload' => (bool)$this->allow_file_upload,
+            'weight' => $this->weight,
+            'weight_type' => $this->weight_type,
         ];
     }
 }

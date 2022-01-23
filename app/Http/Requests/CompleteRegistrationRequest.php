@@ -3,11 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\Criteria;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
-use Symfony\Component\HttpFoundation\FileBag;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CompleteRegistrationRequest extends FormRequest
 {
@@ -16,12 +16,12 @@ class CompleteRegistrationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'phone' => 'nomor hp',
@@ -39,10 +39,10 @@ class CompleteRegistrationRequest extends FormRequest
 
     public function validateCriteria(): array
     {
-        return Criteria::all('name')->mapWithKeys(
+        return Criteria::all(['name', 'allow_file_upload'])->mapWithKeys(
             fn ($value) => [
                 Str::replace(' ', '_', Str::lower($value->name)) => ['required'],
-                Str::replace(' ', '_', Str::lower(Str::title($value->name)) . '_file') => ['required', 'mimetypes:application/pdf']
+                Str::replace(' ', '_', Str::lower(Str::title($value->name)) . '_file') => [Rule::requiredIf($value->allow_file_upload), $value->allow_file_upload ? 'mimetypes:application/pdf' : '']
             ]
         )->all();
     }
@@ -52,22 +52,50 @@ class CompleteRegistrationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return array_merge([
-            'nik' => ['required', 'integer'],
+            'nik' => ['required'],
             'gender' => ['required', 'in:0,1'],
             'picture' => ['required', 'mimes:jpg,png'],
             'phone' => ['required', 'integer', 'unique:user_details'],
         ], $this->validateCriteria());
     }
 
-    public function common()
+    public function commonValidatedData(): array
     {
         return [
             'nik' => $this->nik,
             'phone' => $this->phone,
             'gender' => $this->gender,
         ];
+    }
+
+    public function unValidate(): array
+    {
+        return array_merge(array_keys($this->commonValidatedData()), ['name', 'email', 'picture']);
+    }
+
+    public function groupCriteriaRequest(array $value): array
+    {
+        $texts = [];
+        $files = [];
+
+        foreach ($value as $key => $v) {
+            if (Str::endsWith($v, 'file')) {
+                $files[] = $v;
+            } else {
+                $texts[] = $v;
+            }
+        }
+
+        return ['texts' => $texts, 'files' => $files];
+    }
+
+    public function getDynamicCriteria(): array
+    {
+        $filtered = Arr::except(request()->all(), $this->unValidate());
+
+        return $this->groupCriteriaRequest(array_keys($filtered));
     }
 }

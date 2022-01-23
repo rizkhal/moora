@@ -11,7 +11,7 @@ class NavigatorServiceProvider extends ServiceProvider
     {
         Nav::define(fn ($user) => [
             Nav::item(__('Overview'))->subItems([
-                Nav::item(__('Dashboard'))->for('/home')
+                Nav::item(__('Beranda'))->for('/home')
                     ->heroicon('HomeIcon')->icon('solid'),
 
                 Nav::item(__('Penilaian'))->for('/evaluation')

@@ -11,8 +11,7 @@ class EvaluationController extends Controller
     public function index(Request $request, EvaluationTable $datatable): Response
     {
         return inertia('evaluation/index', [
-            'columns' => $datatable->columns(),
-            'data' => $datatable->query($request),
+            'data' => $datatable->execute(),
         ]);
     }
 }

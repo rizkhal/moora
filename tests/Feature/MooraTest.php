@@ -19,19 +19,19 @@ class MooraTest extends TestCase
     // max => benefit
     // min => cost
     protected $alternative = [
-        [0.5, 0.8, 1, 0.2, 1], // c1 => max
-        [1, 0.7, 0.3, 1, 0.7], // c2 => max
-        [0.7, 1, 0.4, 0.5, 0.4], // c3 => max
-        [0.7, 0.5, 0.7, 0.9, 0.7], // c4 => min
-        [0.8, 1, 1, 0.7, 1], // c5 => min
+        [0.5, 0.8, 1, 0.2, 1], // c1 => benefit
+        [1, 0.7, 0.3, 1, 0.7], // c2 => benefit
+        [0.7, 1, 0.4, 0.5, 0.4], // c3 => benefit
+        [0.7, 0.5, 0.7, 0.9, 0.7], // c4 => cost
+        [0.8, 1, 1, 0.7, 1], // c5 => cost
     ];
 
     /**
      * bobot sync with criteria
      * 
-     * c1 => 0.3
-     * c2 => 0.2
-     * c3 => 0.2
+     * c1 => 0.30
+     * c2 => 0.20
+     * c3 => 0.20
      * c4 => 0.15
      * c5 => 0.15
      */
@@ -81,6 +81,14 @@ class MooraTest extends TestCase
         // cari hasil
         $result = $this->result($optimizedAttribute);
 
+        // dd(
+        //     [
+        //         'optimized1' => $optimizedAttribute[0],
+        //         'optimized2' => $optimizedAttribute[1]
+        //     ],
+        //     ['max' => $result['max']]
+        // );
+
         $this->assertEquals([
             "max" => [
                 0.29931958678344, 0.35945832031415, 0.26524432122655, 0.21887170480645, 0.31090273286937
@@ -97,13 +105,13 @@ class MooraTest extends TestCase
         ], $result);
     }
 
-    protected function result(array $optimizedAttribute)
+    protected function result(array $optimized)
     {
         $max = [];
         $min = [];
         $yii = [];
         $rank = [];
-        $count = count($optimizedAttribute);
+        $count = count($optimized);
         // mencari nilai max dan min
         for ($i = 0; $i < $count; $i++) {
             for ($j = 0; $j < $count; $j++) {
@@ -121,7 +129,7 @@ class MooraTest extends TestCase
                     }
 
                     // jumlahkan nilai optimasi max
-                    $max[$j] += $optimizedAttribute[$i][$j];
+                    $max[$j] += $optimized[$i][$j];
                 }
 
                 if ($i >= 3) {
@@ -131,7 +139,7 @@ class MooraTest extends TestCase
                         $min[$j] = 0;
                     }
 
-                    $min[$j] += $optimizedAttribute[$i][$j];
+                    $min[$j] += $optimized[$i][$j];
                 }
             }
         }
