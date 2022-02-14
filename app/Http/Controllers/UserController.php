@@ -3,21 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Inertia\Response;
-use App\Table\UserTable;
-use Illuminate\Http\Request;
+use App\Datatable\UserDatatable;
 use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index(Request $request, UserTable $datatable)
+    public function index()
     {
-        return inertia('user/index', [
-            'columns' => $datatable->columns(),
-            'data' => $datatable->query($request),
-            'roles' => Role::select(['id', 'name'])->where('name', '!=', 'Peserta')->get(),
-        ]);
+        $roles = Role::select(['id', 'name'])->where('name', '!=', 'Peserta')->get();
+
+        return inertia('user/index')->datatable(new UserDatatable)->with(['roles' => $roles])->title('dwmdk');
     }
 
     public function store(UserRequest $request)

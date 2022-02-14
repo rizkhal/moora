@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Inertia\Response;
+use App\Datatable\Datatable;
 use Illuminate\Support\ServiceProvider;
+use App\Datatable\Exceptions\InvalidDatatable;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // 
+        Response::macro('title', function ($title) {
+            return $this->with('title', $title);
+        });
+
+        Response::macro('datatable', function ($datatable) {
+            if (!$datatable instanceof Datatable) {
+                throw InvalidDatatable::create();
+            }
+
+            $this->with([
+                'datatable' => [
+                    'fields' => $datatable->fields(),
+                    'columns' => $datatable->columns(),
+                    'data' => $datatable->datatable(request()),
+                    'filters' => request()->all(['column', 'search', 'direction', 'filters', 'perpage']),
+                ]
+            ]);
+
+            return $this;
+        });
     }
 }

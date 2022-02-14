@@ -7,7 +7,7 @@
 
       <template v-if="baseNav.subItems">
         <li v-for="(nav, i) in baseNav.subItems" :key="i">
-          <app-link class="focus:outline-none flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="nav.url">
+          <app-link :class="{ 'bg-red-400': isUrl(nav.url.slice(1)) }" class="focus:outline-none flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="nav.url">
             <icon :name="nav.heroicon" :type="nav.icon" class="w-4 h-4" />
             <span class="text-sm"> {{ nav.name }} </span>
           </app-link>
@@ -15,7 +15,7 @@
       </template>
       <template v-if="baseNav && baseNav.subItems">
         <li v-if="baseNav.heroicon || baseNav.icon">
-          <app-link class="my-3 focus:outline-none flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="baseNav.url">
+          <app-link :class="{ 'bg-red-400': isUrl(nav.url.slice(1)) }" class="my-3 focus:outline-none flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="baseNav.url">
             <icon :name="baseNav.heroicon" :type="baseNav.icon" class="w-4 h-4" />
             <span class="text-sm"> {{ baseNav.name }} </span>
           </app-link>

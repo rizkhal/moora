@@ -7,7 +7,7 @@
     <h2 class="text-2xl font-semibold">Permission</h2>
   </div>
 
-  <datatable :columns="columns" :data="data">
+  <!-- <datatable :columns="columns" :data="data">
     <template #description="{ item }">
       <not-available :value="item.description" />
     </template>
@@ -21,7 +21,7 @@
         </button>
       </div>
     </template>
-  </datatable>
+  </datatable> -->
 
   <modal ref="form" @open="check($event)">
     <template #content>
@@ -51,15 +51,11 @@
 <script>
 import modal from "@/components/modal.vue";
 import modalDelete from "@/components/modal-delete.vue";
-import datatable from "@/components/table/datatable.vue";
-import notAvailable from "@/components/table/not-available.vue";
 
 export default {
   components: {
     modal,
-    datatable,
     modalDelete,
-    notAvailable,
   },
   props: {
     data: Object,

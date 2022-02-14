@@ -29,11 +29,17 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'min:6'],
+            'reqruitment' => ['required'],
             'passwordConfirmation' => ['required', 'same:password'],
         ];
     }
 
-    public function dataUser(): array
+    public function getReqruitment(): string
+    {
+        return $this->reqruitment;
+    }
+
+    public function getUserData(): array
     {
         return [
             'name' => $this->name,

@@ -1,11 +1,9 @@
 <template>
-  <app-head title="Peserta" />
-
   <div class="flex items-center mb-4">
     <h2 class="text-2xl font-semibold">Daftar Peserta</h2>
   </div>
 
-  <datatable :columns="columns" :data="data">
+  <!-- <datatable :columns="columns" :data="data">
     <template #verified_at="{ item }">
       <not-available :value="item.verified_at" />
     </template>
@@ -19,16 +17,13 @@
         </button>
       </div>
     </template>
-  </datatable>
+  </datatable> -->
+
 </template>
 <script>
-import datatable from "@/components/table/datatable.vue";
-import notAvailable from "@/components/table/not-available.vue";
-
 export default {
   components: {
-    datatable,
-    notAvailable,
+    // 
   },
   props: {
     data: Object,

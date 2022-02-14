@@ -55,7 +55,7 @@ export default {
       }),
     };
   },
-  created() {
+  mounted() {
     this.criteria.details.some((value) => {
       this.form.options.push({
         id: value.id,

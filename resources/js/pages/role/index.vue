@@ -1,20 +1,15 @@
 <template>
-  <app-head title="Pengaturan role" />
-
-  <div class="flex justify-between items-center mb-4">
-    <div class="flex space-x-2">
+  <v-datatable :title="title" :allow-filter="false" :filters="datatable.filters" :data="datatable.data" :columns="datatable.columns">
+    <template #attributes>
       <app-link href="/setting/role/create" class="btn-red">Tambah Role</app-link>
       <app-link href="/setting/permission" class="btn-red">Lihat Permission</app-link>
-    </div>
-
-    <h2 class="text-2xl font-semibold">Role</h2>
-  </div>
-
-  <datatable :number="true" :columns="columns" :data="data">
-    <template #description="{ item: { description } }">
-      <not-available :value="description" />
     </template>
-    <template #action="{ item }">
+
+    <template #description="{ item: { description } }">
+      <v-not-available :value="description" />
+    </template>
+
+     <template #action="{ item }">
       <div class="flex space-x-2">
         <app-link
           as="button"
@@ -37,29 +32,13 @@
         </button>
       </div>
     </template>
-  </datatable>
-  <modal ref="delete">
-    <template #content="{ data: { id } }">
-      <modal-delete :loading="form.processing" @close="$refs.delete.closeModal()" @destroy="destroy(id)" />
-    </template>
-  </modal>
+  </v-datatable>
 </template>
 <script>
-import modal from "@/components/modal.vue";
-import modalDelete from "@/components/modal-delete.vue";
-import datatable from "@/components/table/datatable.vue";
-import notAvailable from "@/components/table/not-available.vue";
-
 export default {
-  components: {
-    modal,
-    datatable,
-    modalDelete,
-    notAvailable,
-  },
   props: {
-    data: Object,
-    columns: Object,
+    title: String,
+    datatable: Object,
   },
   data() {
     return {

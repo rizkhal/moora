@@ -65,9 +65,6 @@ export default {
         onSuccess: (success) => {
           this.form.reset();
         },
-        onError: (error) => {
-          console.log(error);
-        },
       });
     },
     clone() {

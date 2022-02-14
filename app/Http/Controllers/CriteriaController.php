@@ -7,46 +7,43 @@ use App\Models\Criteria;
 use App\Enums\WeightType;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use App\Table\CriteriaTable;
-use Illuminate\Http\Request;
 use App\Models\CriteriaDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CriteriaRequest;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\ReqruitmentCriteriaRequest;
 
 class CriteriaController extends Controller
 {
-    public function index(Request $request, CriteriaTable $datatable): Response
+    public function index(): Response
     {
-        return inertia('criteria/index', [
-            'columns' => $datatable->columns(),
-            'data' => $datatable->query($request),
-        ]);
+        return inertia('reqruitment/criteria/index')->title('Daftar Kriteria');
     }
 
     public function create(): Response
     {
-        $weightTypes = collect(WeightType::cases())->mapWithKeys(fn ($object) => [$object->value => Str::title($object->name)]);
-
         return inertia('criteria/create', [
-            'weightTypes' => $weightTypes,
+            'weightTypes' => WeightType::labels(),
         ]);
     }
 
-    public function store(CriteriaRequest $request)
+    public function store(ReqruitmentCriteriaRequest $request)
     {
         DB::beginTransaction();
 
         try {
             $criteria = Criteria::create($request->criteria());
-            collect($request->options)->each(fn ($field): CriteriaDetail => $criteria->details()->create($field));
+
+            collect($request->options)->each(
+                fn ($field): CriteriaDetail => $criteria->details()->create($field)
+            );
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Berhasil menambah kriteria');
+            return back();
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', $th->getMessage());
+            return back();
         }
     }
 

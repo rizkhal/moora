@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Reqruitment;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -61,5 +63,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function detail(): HasOne
     {
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
+    }
+
+    public function reqruitments(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Reqruitment::class,
+            'user_has_reqruitments',
+            'user_id',
+            'reqruitment_id'
+        );
     }
 }

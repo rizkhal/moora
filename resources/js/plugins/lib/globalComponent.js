@@ -2,6 +2,7 @@ import helper from './helper';
 import icon from '@/components/icon.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3'
 
+import modal from '@/components/modal.vue'
 import textInput from '@/components/text-input.vue'
 import selectInput from '@/components/select-input.vue'
 import textareaInput from '@/components/textarea-input.vue'
@@ -9,8 +10,9 @@ import loadingButton from '@/components/loading-button.vue'
 import fileInput from '@/components/file-input.vue'
 import radioInput from "@/components/radio-input";
 
-// ...
-import { modal } from './component';
+// datatable
+import datatable from '@/components/datatable/datatable.vue';
+import notAvailable from '@/components/datatable/not-available.vue';
 
 export default {
   install: (app, options) => {
@@ -24,6 +26,13 @@ export default {
     app.component('select-input', selectInput);
     app.component('textarea-input', textareaInput);
     app.component('loading-button', loadingButton);
+
+    // modal
+    app.component('v-modal', modal);
+
+    // datatable
+    app.component('v-datatable', datatable);
+    app.component('v-not-available', notAvailable);
 
     app.config.globalProperties.$helper = helper;
   }

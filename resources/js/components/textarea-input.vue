@@ -5,7 +5,7 @@
       :id="id"
       ref="textarea"
       v-bind="{ ...$attrs, class: null }"
-      class="form-input"
+      class="form-input text-sm"
       :class="{ error: error }"
       :type="type"
       :value="modelValue"

@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers\Acl;
 
-use App\Table\RoleTable;
-use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use Spatie\Permission\Models\Role;
+use App\Datatable\Acl\RoleDatatable;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 class RoleController extends Controller
 {
-    public function index(Request $request, RoleTable $datatable)
+    public function index()
     {
-        return inertia('role/index', [
-            'columns' => $datatable->columns(),
-            'data' => $datatable->query($request),
-        ]);
+        return inertia('role/index')->datatable(new RoleDatatable)->title('Daftar Role');
     }
 
     public function create()

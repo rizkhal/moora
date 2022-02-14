@@ -14,7 +14,7 @@ class NavigatorServiceProvider extends ServiceProvider
                 Nav::item(__('Beranda'))->for('/home')
                     ->heroicon('HomeIcon')->icon('solid'),
 
-                Nav::item(__('Penilaian'))->for('/evaluation')
+                Nav::item(__('Overview'))->for('/evaluation')
                     ->heroicon('BadgeCheckIcon')->icon('solid')
                     ->when($user->can('lihat-penilaian')),
 
@@ -27,14 +27,10 @@ class NavigatorServiceProvider extends ServiceProvider
                     ->when($user->hasRole('Peserta')),
             ]),
 
-            Nav::item(__('Master'))->subItems([
-                Nav::item(__('Peserta'))->for('/participan')
-                    ->heroicon('UserGroupIcon')->icon('solid')
+            Nav::item(__('Penerimaan'))->subItems([
+                Nav::item(__('Penerimaan'))->for('/reqruitment')
+                    ->heroicon('BriefcaseIcon')->icon('solid')
                     ->when($user->can('lihat-peserta')),
-
-                Nav::item(__('Kriteria'))->for('/criteria')
-                    ->heroicon('SparklesIcon')->icon('solid')
-                    ->when($user->can('lihat-pengumuman')),
 
                 Nav::item(__('Pengumuman'))->for('/announcement')
                     ->heroicon('SpeakerphoneIcon')->icon('solid')

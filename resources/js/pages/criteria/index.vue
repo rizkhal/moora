@@ -9,7 +9,7 @@
     <h2 class="text-2xl font-semibold">Kriteria</h2>
   </div>
 
-  <datatable :columns="columns" :data="data">
+  <!-- <datatable :columns="columns" :data="data">
     <template #upload_file="{ item }">
       <div v-if="item.upload_file" class="flex items-center space-x-2">
         <icon name="CheckCircleIcon" type="solid" class="text-green-500 w-4 h-4" />
@@ -36,7 +36,8 @@
         </button>
       </div>
     </template>
-  </datatable>
+  </datatable> -->
+
   <modal ref="delete">
     <template #content="{ data }">
       <modal-delete :loading="form.processing" @close="$refs.delete.closeModal()" @destroy="destroy(data)" />
@@ -46,15 +47,11 @@
 <script>
 import modal from "@/components/modal.vue";
 import modalDelete from "@/components/modal-delete.vue";
-import datatable from "@/components/table/datatable.vue";
-import notAvailable from "@/components/table/not-available.vue";
 
 export default {
   components: {
     modal,
     modalDelete,
-    datatable,
-    notAvailable,
   },
   props: {
     data: Object,

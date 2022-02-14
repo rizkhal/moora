@@ -16,7 +16,7 @@ class CriteriaTable
                 'id' => $criteria->id,
                 'nama' => $criteria->name,
                 'bobot' => $criteria->weight,
-                'total_item' => $criteria->details->count(),
+                'total_option' => $criteria->details->count(),
                 'keterangan' => $criteria->description,
                 'upload_file' => $criteria->allow_file_upload,
                 'tanggal' => $criteria->created_at->format('d/m/y'),
@@ -43,7 +43,7 @@ class CriteriaTable
                 'sortable' => true,
                 'searchable' => true,
             ],
-            'total_item' => [
+            'total_option' => [
                 'sortable' => true,
                 'searchable' => true,
             ],

@@ -1,7 +1,5 @@
 <template>
-  <app-head title="Pengaturan pengguna" />
-
-  <div class="flex justify-between items-center mb-4">
+  <!-- <div class="flex justify-between items-center mb-4">
     <button class="btn-red" type="button" @click="$refs.form.openModal()">Tambah</button>
 
     <h2 class="text-2xl font-semibold">Pengguna</h2>
@@ -52,25 +50,32 @@
     <template #content="{ data: { id } }">
       <modal-delete :loading="form.processing" @close="$refs.delete.closeModal()" @destroy="destroy(id)" />
     </template>
-  </modal>
+  </modal> -->
+
+  <v-datatable :title="title" :allow-filter="false" :filters="datatable.filters" :data="datatable.data" :columns="datatable.columns">
+    <template #action>
+      <div class="flex space-x-2">
+        <button
+          type="button"
+          class="bg-yellow-400 p-2 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none focus:ring-offset-2"
+        >
+          <icon name="PencilIcon" type="solid" class="w-3 h-3 text-white" />
+        </button>
+        <button
+          type="button"
+          class="bg-red-500 p-2 rounded-md focus:ring-2 focus:ring-red-500 focus:outline-none focus:ring-offset-2"
+        >
+          <icon name="TrashIcon" type="solid" class="w-3 h-3 text-white" />
+        </button>
+      </div>
+    </template>
+  </v-datatable>
 </template>
 <script>
-import modal from "@/components/modal.vue";
-import modalDelete from "@/components/modal-delete";
-import datatable from "@/components/table/datatable.vue";
-import notAvailable from "@/components/table/not-available.vue";
-
 export default {
-  components: {
-    modal,
-    datatable,
-    modalDelete,
-    notAvailable,
-  },
   props: {
-    data: Object,
-    columns: Object,
     roles: Object,
+    datatable: Object,
   },
   data() {
     return {

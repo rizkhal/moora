@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Status;
 use App\Models\Setting;
 use App\Models\SettingEmail;
 use Illuminate\Database\Seeder;
-use App\Models\SettingReqruitment;
 use Illuminate\Database\Eloquent\Model;
 
 class SettingTableSeeder extends Seeder
@@ -39,12 +37,6 @@ class SettingTableSeeder extends Seeder
             'encryption' => 'tls',
             'from_address' => 'noreply@kpu.com',
             'from_name' => 'KPU Email Broadcaster',
-            'created_by' => 1
-        ]);
-
-        SettingReqruitment::create([
-            'pas_min' => 65.00,
-            'req_status' => Status::Active->value, // status penerimaan
             'created_by' => 1
         ]);
     }

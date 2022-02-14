@@ -6,8 +6,6 @@ use App\Models\User;
 use App\Models\Criteria;
 use App\Services\MooraQuery;
 use App\Services\MooraFormula;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
 
 class EvaluationTable
 {
@@ -29,36 +27,8 @@ class EvaluationTable
         $normalized = $formula->normalize($divider);
         $optimized = $formula->optimize($criteria->pluck('weight'), $normalized);
         $result = $formula->result($criteria->pluck('weight_type'), $optimized);
+        $users = User::whereHas('roles', fn ($query) => $query->whereName('Peserta'))->get();
 
-        $user = User::whereHas('roles', fn ($query) => $query->whereName('Peserta'))->get();
-
-        return [
-            'criteria' => $criteria,
-            'divider' => $divider,
-            'normalized' => $normalized,
-            'user' => $user,
-        ];
-    }
-
-    public function columns(): array
-    {
-        return [
-            'nama peserta' => [
-                'sortable' => true,
-                'searchable' => true,
-            ],
-            'skor' => [
-                'sortable' => true,
-                'searchable' => false,
-            ],
-            'rangking' => [
-                'sortable' => true,
-                'searchable' => true,
-            ],
-            'action' => [
-                'sortable' => false,
-                'searchable' => false,
-            ],
-        ];
+        return compact('users', 'result', 'divider', 'criteria', 'optimized', 'normalized');
     }
 }

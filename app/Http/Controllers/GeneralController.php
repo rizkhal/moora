@@ -6,7 +6,6 @@ use App\Enums\Status;
 use Inertia\Response;
 use App\Models\SettingEmail;
 use App\Services\Configable;
-use App\Models\SettingReqruitment;
 use App\Http\Requests\SettingEmailRequest;
 
 class GeneralController extends Controller
@@ -18,7 +17,6 @@ class GeneralController extends Controller
         return inertia('setting/general', [
             'status' => $status,
             'email' => SettingEmail::first(),
-            'reqruitment' => SettingReqruitment::first(),
         ]);
     }
 

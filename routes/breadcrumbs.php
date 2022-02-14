@@ -1,33 +1,70 @@
 <?php
 
 use App\Models\Criteria;
+use App\Models\Reqruitment;
+use Illuminate\Support\Str;
 use Tabuna\Breadcrumbs\Trail;
 use Spatie\Permission\Models\Role;
 use Tabuna\Breadcrumbs\Breadcrumbs;
 
 Breadcrumbs::for(
-    'participan.index',
+    'reqruitment.index',
     fn (Trail $trail): Trail =>
-    $trail->push('Peserta', route('participan.index'))
+    $trail->push('Penerimaan', route('reqruitment.index'))
 );
 
 Breadcrumbs::for(
-    'criteria.index',
+    'reqruitment.create',
     fn (Trail $trail): Trail =>
-    $trail->push('Kriteria', route('criteria.index'))
+    $trail->parent('reqruitment.index')->push('Tambah', route('reqruitment.create'))
 );
 
 Breadcrumbs::for(
-    'criteria.create',
-    fn (Trail $trail): Trail =>
-    $trail->parent('criteria.index')->push('Tambah', route('criteria.create'))
+    'reqruitment.edit',
+    fn (Trail $trail, Reqruitment $reqruitment): Trail =>
+    $trail->parent('reqruitment.index')->push(Str::title($reqruitment->name), route('reqruitment.show', $reqruitment->id))->push('Ubah')
 );
 
 Breadcrumbs::for(
-    'criteria.edit',
-    fn (Trail $trail, Criteria $criterion): Trail =>
-    $trail->parent('criteria.index')->push('Ubah', route('criteria.edit', $criterion->id))
+    'reqruitment.show',
+    fn (Trail $trail, Reqruitment $reqruitment): Trail =>
+    $trail->parent('reqruitment.index')->push(Str::title($reqruitment->name))
 );
+
+Breadcrumbs::for(
+    'reqruitment.criteria.create',
+    fn (Trail $trail, Reqruitment $reqruitment): Trail =>
+    $trail->parent('reqruitment.index')->push(Str::title($reqruitment->name), route('reqruitment.show', $reqruitment->id))->push('Tambah Kriteria')
+);
+
+Breadcrumbs::for(
+    'reqruitment.criteria.show',
+    fn (Trail $trail, Reqruitment $reqruitment, Criteria $criteria): Trail =>
+    $trail->parent('reqruitment.index')->push(Str::title($reqruitment->name), route('reqruitment.show', $reqruitment->id))->push(Str::title($criteria->name))
+);
+
+Breadcrumbs::for(
+    'reqruitment.criteria.edit',
+    fn (Trail $trail, Reqruitment $reqruitment, Criteria $criteria): Trail =>
+    $trail->parent('reqruitment.index')
+        ->push(Str::title($reqruitment->name), route('reqruitment.show', $reqruitment->id))
+        ->push(Str::title($criteria->name), route('reqruitment.criteria.show', ['reqruitment' => $reqruitment->id, 'criteria' => $criteria->id]))
+        ->push('Ubah')
+);
+
+Breadcrumbs::for(
+    'reqruitment.users',
+    fn (Trail $trail, Reqruitment $reqruitment) =>
+    $trail->push($reqruitment->name, route('reqruitment.index'))->push('Daftar Peserta')
+);
+
+Breadcrumbs::for(
+    'reqruitment.ranks',
+    fn (Trail $trail, Reqruitment $reqruitment) =>
+    $trail->push($reqruitment->name, route('reqruitment.index'))->push('Rangking')
+);
+
+//------------------------------------------
 
 Breadcrumbs::for(
     'setting.general.index',

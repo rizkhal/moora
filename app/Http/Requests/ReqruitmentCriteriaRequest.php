@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CriteriaRequest extends FormRequest
+class ReqruitmentCriteriaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -40,6 +40,7 @@ class CriteriaRequest extends FormRequest
         return [
             'name' => $this->name,
             'description' => $this->description,
+            'reqruitment_id' => $this->reqruitment_id,
             'allow_file_upload' => (bool)$this->allow_file_upload,
             'weight' => $this->weight,
             'weight_type' => $this->weight_type,

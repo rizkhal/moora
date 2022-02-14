@@ -20,6 +20,7 @@ class CreateCriteriasTable extends Migration
             $table->boolean('allow_file_upload')->default(false);
             $table->float('weight')->comment('bobot');
             $table->tinyInteger('weight_type')->comment('1:cost 2:benefit');
+            $table->foreignId('reqruitment_id')->constrained('reqruitments')->onDelete('cascade');
             $table->foreignId('created_by');
             $table->timestamps();
         });

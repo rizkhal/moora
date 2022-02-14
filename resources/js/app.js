@@ -4,6 +4,9 @@ import appLayout from './layouts/app-layout.vue';
 import { globalComponent } from './plugins/index';
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
+// toast
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 InertiaProgress.init();
 
@@ -23,6 +26,11 @@ createInertiaApp({
     app.config.productionTip = false;
 
     app.use(globalComponent);
+
+    app.use(VueToast, {
+      position: 'top-right'
+    });
+
     app.mount(el);
     return app;
   },
