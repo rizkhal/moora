@@ -55,13 +55,15 @@ Breadcrumbs::for(
 Breadcrumbs::for(
     'reqruitment.users',
     fn (Trail $trail, Reqruitment $reqruitment) =>
-    $trail->push($reqruitment->name, route('reqruitment.index'))->push('Daftar Peserta')
+    $trail->push($reqruitment->name, route('reqruitment.index'))
+        ->push('Daftar Peserta')
 );
 
 Breadcrumbs::for(
     'reqruitment.ranks',
     fn (Trail $trail, Reqruitment $reqruitment) =>
-    $trail->push($reqruitment->name, route('reqruitment.index'))->push('Rangking')
+    $trail->push($reqruitment->name, route('reqruitment.index'))
+        ->push('Daftar Peserta', route('reqruitment.users', $reqruitment->id))->push('Rangking')
 );
 
 //------------------------------------------
@@ -93,7 +95,7 @@ Breadcrumbs::for(
 Breadcrumbs::for(
     'setting.role.show',
     fn (Trail $trail, Role $role): Trail =>
-    $trail->parent('setting.role.index')->push('Edit', route('setting.role.show', $role->id))->push($role->name)
+    $trail->parent('setting.role.index')->push($role->name)
 );
 
 Breadcrumbs::for(

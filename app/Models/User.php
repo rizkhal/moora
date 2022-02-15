@@ -53,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->whereHas('roles', fn (Builder $query) => $query->where('name', '!=', 'Peserta'));
     }
 
+    public function scopeCompleteRegistration($query)
+    {
+        return $query->whereHas('detail');
+    }
+
     public function avatar(): Attribute
     {
         return new Attribute(

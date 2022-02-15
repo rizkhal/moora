@@ -1,14 +1,20 @@
 import { createApp, h } from 'vue'
 import except from './layouts/except';
 import appLayout from './layouts/app-layout.vue';
-import { globalComponent } from './plugins/index';
+import { component } from './plugins/index';
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
-// toast
+
+// toast notification
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
-InertiaProgress.init();
+// custom plugins component
+import VueModal from './plugins/modal/index';
+
+InertiaProgress.init({
+  showSpinner: true
+});
 
 createInertiaApp({
   resolve: name => {
@@ -25,11 +31,13 @@ createInertiaApp({
     const app = createApp({ render: () => h(App, props) }).use(plugin);
     app.config.productionTip = false;
 
-    app.use(globalComponent);
+    app.use(component);
 
     app.use(VueToast, {
       position: 'top-right'
     });
+
+    app.use(VueModal);
 
     app.mount(el);
     return app;

@@ -18,6 +18,7 @@ class UserDatatable extends Datatable
     {
         return [
             Column::make('id')->invisible(),
+            Column::make('role_id')->format(fn ($value, $row) => $row->roles->pluck('id')->first())->invisible(),
             Column::make('Nama', 'name')->sortable()->searchable(),
             Column::make('Email')->sortable()->searchable(),
             Column::make('Role')

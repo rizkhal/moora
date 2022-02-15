@@ -1,0 +1,3 @@
+<template>
+    announcement list
+</template>

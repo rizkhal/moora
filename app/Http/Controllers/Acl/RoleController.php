@@ -20,7 +20,7 @@ class RoleController extends Controller
     {
         return inertia('role/create', [
             'permissions' => Permission::select(['id', 'name', 'type'])->get()->groupBy('type')->all(),
-        ]);
+        ])->title('Kelola role');
     }
 
     public function store(RoleRequest $request)
@@ -30,7 +30,7 @@ class RoleController extends Controller
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        return redirect()->back()->with('success', 'Berhasil menambah role');
+        return back();
     }
 
     public function show(Role $role)
@@ -39,7 +39,7 @@ class RoleController extends Controller
             'role' => $role,
             'permissions' => Permission::select(['id', 'name', 'type'])->get()->groupBy('type')->all(),
             'permissionSelected' => $role->permissions()->select(['id', 'name', 'type'])->get()->groupBy('type')->all(),
-        ]);
+        ])->title('Rincian Role');
     }
 
     public function update(Role $role, RoleRequest $request)
@@ -48,13 +48,13 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions());
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        return redirect()->back()->with('success', 'Berhasil mengubah role');
+        return back();
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        return redirect()->back()->with('success', 'Berhasil menghapus role');
+        return back();
     }
 }

@@ -1,3 +1,3 @@
-import globalComponent from './lib/globalComponent';
+import component from './utils/component';
 
-export { globalComponent }
+export { component }

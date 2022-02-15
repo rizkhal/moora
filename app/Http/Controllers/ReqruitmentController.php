@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Inertia\Response;
 use App\Models\Reqruitment;
+use App\Services\CalculateReqruitment;
 use App\Datatable\ReqruitmentDatatable;
 use App\Http\Requests\ReqruitmentRequest;
-use App\Datatable\ReqruitmentCriteriaDatatable;
 use App\Datatable\ReqruitmentUserDatatable;
+use App\Datatable\ReqruitmentCriteriaDatatable;
 
 class ReqruitmentController extends Controller
 {
@@ -107,10 +108,10 @@ class ReqruitmentController extends Controller
             ->title("Daftar Peserta {$reqruitment->name}");
     }
 
-    public function ranks(Reqruitment $reqruitment)
+    public function ranks(Reqruitment $reqruitment, CalculateReqruitment $result)
     {
         return inertia('reqruitment/users/ranks')
-            ->with(['reqruitment' => $reqruitment])
+            ->with(['result' => $result->execute($reqruitment)])
             ->title('Peringkat Peserta');
     }
 }

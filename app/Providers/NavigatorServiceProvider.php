@@ -10,13 +10,13 @@ class NavigatorServiceProvider extends ServiceProvider
     public function boot()
     {
         Nav::define(fn ($user) => [
-            Nav::item(__('Overview'))->subItems([
+            Nav::item(__('Ringkasan'))->subItems([
                 Nav::item(__('Beranda'))->for('/home')
                     ->heroicon('HomeIcon')->icon('solid'),
 
-                Nav::item(__('Overview'))->for('/evaluation')
-                    ->heroicon('BadgeCheckIcon')->icon('solid')
-                    ->when($user->can('lihat-penilaian')),
+                // Nav::item(__('Overview'))->for('/evaluation')
+                //     ->heroicon('BadgeCheckIcon')->icon('solid')
+                //     ->when($user->can('lihat-penilaian')),
 
                 Nav::item(__('Upload Berkas'))->for('/participan/complete-registration')
                     ->heroicon('SparklesIcon')->icon('solid')

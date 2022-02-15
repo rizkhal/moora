@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnouncementRequest;
 use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
@@ -12,6 +13,11 @@ class AnnouncementController extends Controller
             abort(403);
         }
 
-        return inertia('announcement/index');
+        return inertia('announcement/index')->title('Kelola Pengumuman');
+    }
+
+    public function store(AnnouncementRequest $request)
+    {
+        dd($request->validated());
     }
 }

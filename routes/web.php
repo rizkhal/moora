@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\Acl\RoleController;
 use App\Http\Controllers\ParticipanController;
-use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ReqruitmentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Acl\PermissionController;
@@ -16,13 +15,13 @@ use App\Http\Controllers\ReqruitmentCriteriaController;
 Route::middleware(['auth', 'verified'])->group(fn (): array => [
     Route::get('/home', [HomeController::class, 'index'])->name('home'),
     Route::resource('/participan', ParticipanController::class),
-    Route::resource('/announcement', AnnouncementController::class),
-    Route::prefix('/evaluation')->as('evaluation.')->group(fn (): array => [
-        Route::get('/', [EvaluationController::class, 'index'])->name('index'),
+
+    Route::controller(AnnouncementController::class)->prefix('/announcement')->as('announcement.')->group(fn (): array => [
+        Route::get('/', 'index')->name('index'),
+        Route::post('/', 'store')->name('store'),
     ]),
 
     Route::resource('/reqruitment', ReqruitmentController::class),
-
     Route::controller(ReqruitmentController::class)->prefix('/reqruitment')->as('reqruitment.')->group(fn (): array => [
         Route::get('/{reqruitment}/users', 'users')->name('users'),
         Route::get('/{reqruitment}/users/ranks', 'ranks')->name('ranks'),

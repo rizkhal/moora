@@ -41,11 +41,15 @@ export default {
   },
   methods: {
     saveEmail() {
-      this.emailEnv.post("/setting/general/email/smtp", {
-        onError: (error) => {
-          console.log(error);
-        },
-      });
+      if (this.emailEnv.isDirty) {
+          this.emailEnv.post("/setting/general/email/smtp", {
+            onSuccess: () => {
+              this.$toast.success('Berhasil menyimpan konfigurasi email');
+          },
+        });
+      } else {
+        this.$toast.info('Anda tidak membuat perubahan pada form');
+      }
     },
   },
 };

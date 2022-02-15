@@ -1,0 +1,22 @@
+[
+    {
+        "icon": "SpeakerphoneIcon",
+        "text": "Pengumuman",
+        "component": 1
+    },
+    {
+        "icon": "StarIcon",
+        "text": "Ditandai",
+        "component": 2
+    },
+    {
+        "icon": "InboxIcon",
+        "text": "Draft",
+        "component": 3
+    },
+    {
+        "icon": "TrashIcon",
+        "text": "Sampah",
+        "component": 4
+    }
+]
