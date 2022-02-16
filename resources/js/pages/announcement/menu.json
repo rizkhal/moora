@@ -1,0 +1,23 @@
+[
+    {
+        "icon": "SpeakerphoneIcon",
+        "text": "Pengumuman",
+        "route": "/announcement/all"
+    },
+    {
+        "icon": "StarIcon",
+        "text": "Berbintang",
+        "route": "/announcement/stared"
+    },
+    {
+        "icon": "InboxIcon",
+        "text": "Draft",
+        "route": "/announcement/draft"
+    },
+    {
+        "divider": true,
+        "icon": "TrashIcon",
+        "text": "Sampah",
+        "route": "/announcement/trash"
+    }
+]

@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Setting;
+use App\Models\SettingEmail;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class SettingTableSeeder extends Seeder
 {
@@ -23,9 +23,21 @@ class SettingTableSeeder extends Seeder
             'site_description' => 'Situs Seleksi Pegawai KPU',
             'site_landing_title' => ' Indonesia memanggil.',
             'site_landing_description' => 'Ayoo gabung dengan KPU sekarang juga. bersama KPU kita bangun indonesia yang demokratis!',
-            'site_logo' => 'storage/logo/default.svg',
+            'site_logo' => 'storage/logo/kpu.png',
             'site_logo_text' => 'Komisi Pemilihan Umum Kota Lubuk Linggau',
             'created_by' => 1,
+        ]);
+
+        SettingEmail::create([
+            'driver' => 'smtp',
+            'host' => 'smtp.mailtrap.io',
+            'port' => '2525',
+            'username' => '660f3324f2b94f',
+            'password' => '0339def19646f1',
+            'encryption' => 'tls',
+            'from_address' => 'noreply@kpu.com',
+            'from_name' => 'KPU Email Broadcaster',
+            'created_by' => 1
         ]);
     }
 }

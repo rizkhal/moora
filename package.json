@@ -31,6 +31,7 @@
         "eslint-plugin-vue": "^8.2.0",
         "laravel-mix": "^6.0.39",
         "lodash": "^4.17.21",
+        "mitt": "^3.0.0",
         "postcss": "^8.4.5",
         "postcss-import": "^12.0.1",
         "postcss-nesting": "^7.0.1",
@@ -41,6 +42,7 @@
         "uuid": "^8.3.2",
         "vue": "^3.2.24",
         "vue-loader": "^16.2.0",
-        "vue-multiselect": "^2.1.6"
+        "vue-multiselect": "^2.1.6",
+        "vue-toast-notification": "^3.0.0"
     }
 }

@@ -1,0 +1,22 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Datatable\Column;
+use App\Datatable\Datatable;
+use Illuminate\Database\Eloquent\Builder;
+
+class DummyClass extends Datatable
+{
+    public function query()
+    {
+        // ...
+    }
+
+    public function columns(): array
+    {
+        return [
+            
+        ];
+    }
+}

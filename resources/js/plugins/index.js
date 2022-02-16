@@ -1,7 +1,3 @@
-import registerGlobalComponent from './lib/registerGlobalComponent';
-import helper from './lib/helper';
+import component from './utils/component';
 
-export {
-    helper,
-    registerGlobalComponent,
-}
+export { component }

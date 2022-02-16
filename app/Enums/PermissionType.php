@@ -16,8 +16,7 @@ enum PermissionType: int implements HasLabel, HasColor
 
     public function color(): string
     {
-        return match($this) 
-        {
+        return match ($this) {
             self::CREATE => 'indigo-500',
             self::READ => 'green-500',
             self::UPDATE => 'blue-500',
@@ -27,8 +26,7 @@ enum PermissionType: int implements HasLabel, HasColor
 
     public function label(): string
     {
-        return match($this) 
-        {
+        return match ($this) {
             self::CREATE => __('Tambah'),
             self::READ => __('Lihat'),
             self::UPDATE => __('Ubah'),

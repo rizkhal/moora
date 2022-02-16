@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Constants\Gender;
-use App\Constants\Religion;
+use App\Enums\PermissionType;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class RoleTableSeeder extends Seeder
 {
@@ -20,56 +18,47 @@ class RoleTableSeeder extends Seeder
     {
         Role::create(['name' => 'Admin', 'guard_name' => 'web']);
         Role::create(['name' => 'Peserta', 'guard_name' => 'web']);
+        Role::create(['name' => 'Operator', 'guard_name' => 'web']);
+        Role::create(['name' => 'Pimpinan', 'guard_name' => 'web']);
 
-        User::create([
-            'nik' => '294284294829042',
-            'name' => 'Admin KPU',
-            'email' => 'admin@mail.com',
-            'phone' => '081234567899',
-            'email_verified_at' => now(),
-            'password' => Hash::make('secret123'),
-            'gender' => Gender::MALE,
-            'birth_date' => '1998-01-02',
-            'birth_place' => 'Ternate',
-            'religion' => Religion::ISLAM,
-            'province' => 82, // maluku utara
-            'city' => 8271, // ternate
-            'district' => 8271030, // ternate utara
-            'sub_district' => 8271030018, // sangaji utara.
-        ])->assignRole('Admin');
+        $this->admin();
+    }
 
-        User::create([
-            'nik' => '294284294829042',
-            'name' => 'Ayu Puspita',
-            'email' => 'ayu@mail.com',
-            'phone' => '081234567810',
-            'email_verified_at' => now(),
-            'password' => Hash::make('secret123'),
-            'gender' => Gender::FEMALE,
-            'birth_date' => '1998-01-02',
-            'birth_place' => 'Ternate',
-            'religion' => Religion::ISLAM,
-            'province' => 82, // maluku utara
-            'city' => 8271, // ternate
-            'district' => 8271030, // ternate utara
-            'sub_district' => 8271030018, // sangaji utara.
-        ])->assignRole('Peserta');
+    private function admin()
+    {
+        // create
+        Permission::create(['name' => 'tambah-role', 'description' => 'Tambah Role', 'type' => PermissionType::CREATE->value]);
+        Permission::create(['name' => 'tambah-permission', 'description' => 'Tambah Permission', 'type' => PermissionType::CREATE->value]);
+        Permission::create(['name' => 'tambah-pengguna', 'description' => 'Tambah pengguna', 'type' => PermissionType::CREATE->value]);
+        Permission::create(['name' => 'tambah-pengumuman', 'description' => 'Tambah pengumuman', 'type' => PermissionType::CREATE->value]);
 
-        User::create([
-            'nik' => '294284294829042',
-            'name' => 'Bujang',
-            'email' => 'bujang@mail.com',
-            'phone' => '081214567810',
-            'email_verified_at' => now(),
-            'password' => Hash::make('secret123'),
-            'gender' => Gender::FEMALE,
-            'birth_date' => '1998-01-02',
-            'birth_place' => 'Ternate',
-            'religion' => Religion::ISLAM,
-            'province' => 82, // maluku utara
-            'city' => 8271, // ternate
-            'district' => 8271030, // ternate utara
-            'sub_district' => 8271030018, // sangaji utara.
-        ])->assignRole('Peserta');
+        // read
+        Permission::create(['name' => 'lihat-dashboard', 'description' => 'Lihat dashboard', 'type' => PermissionType::READ->value]);
+        Permission::create(['name' => 'lihat-peserta', 'description' => 'Lihat peserta', 'type' => PermissionType::READ->value]);
+        Permission::create(['name' => 'lihat-pengumuman', 'description' => 'Lihat pengumuman', 'type' => PermissionType::READ->value]);
+        Permission::create(['name' => 'lihat-role', 'description' => 'Lihat role', 'type' => PermissionType::READ->value]);
+        Permission::create(['name' => 'lihat-permission', 'description' => 'Lihat permission', 'type' => PermissionType::READ->value]);
+        Permission::create(['name' => 'lihat-pengguna', 'description' => 'Lihat pengguna', 'type' => PermissionType::READ->value]);
+        Permission::create(['name' => 'lihat-pengaturan-umum', 'description' => 'Lihat pengaturan umum', 'type' => PermissionType::READ->value]);
+
+        // update
+        Permission::create(['name' => 'ubah-role', 'description' => 'Ubah role', 'type' => PermissionType::UPDATE->value]);
+        Permission::create(['name' => 'ubah-permission', 'description' => 'Ubah role', 'type' => PermissionType::UPDATE->value]);
+        Permission::create(['name' => 'ubah-pengguna', 'description' => 'Ubah pengguna', 'type' => PermissionType::UPDATE->value]);
+        Permission::create(['name' => 'ubah-pengumuman', 'description' => 'Ubah pengumuman', 'type' => PermissionType::UPDATE->value]);
+        Permission::create(['name' => 'ubah-pengaturan-umum', 'description' => 'Ubah pengaturan umum', 'type' => PermissionType::UPDATE->value]);
+
+        // delete
+        Permission::create(['name' => 'hapus-role', 'description' => 'Hapus role', 'type' => PermissionType::DELETE->value]);
+        Permission::create(['name' => 'hapus-permission', 'description' => 'Hapus permission', 'type' => PermissionType::DELETE->value]);
+        Permission::create(['name' => 'hapus-pengguna', 'description' => 'Hapus pengguna', 'type' => PermissionType::DELETE->value]);
+        Permission::create(['name' => 'hapus-pengumuman', 'description' => 'Hapus pengumuman', 'type' => PermissionType::DELETE->value]);
+
+        // verifikasi
+        Permission::create(['name' => 'lihat-penilaian', 'description' => 'Lihat penilaian', 'type' => PermissionType::READ->value]);
+
+        Role::findByName('Admin')->syncPermissions(Permission::all());
+
+        return $this;
     }
 }

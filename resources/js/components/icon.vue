@@ -5,7 +5,10 @@
 export default {
   props: {
     name: String,
-    type: String,
+    type: {
+      type: String,
+      default: 'solid'
+    },
   },
   computed: {
     component() {

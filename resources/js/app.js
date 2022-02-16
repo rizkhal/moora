@@ -1,26 +1,43 @@
 import { createApp, h } from 'vue'
-import appLayout from './layouts/layout.vue';
+import except from './layouts/except';
+import appLayout from './layouts/app-layout.vue';
+import { component } from './plugins/index';
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import {registerGlobalComponent, helper} from './plugins/index';
 
-InertiaProgress.init()
+// toast notification
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+// custom plugins component
+import VueModal from './plugins/modal/index';
+
+InertiaProgress.init({
+  showSpinner: true
+});
 
 createInertiaApp({
   resolve: name => {
-    const module = require(`./pages/${name}.vue`);
+    const page = require(`./pages/${name}.vue`).default;
 
-    module.default.layout = appLayout;
+    if (page.layout === undefined && !except.includes(name)) {
+      page.layout = appLayout;
+    }
 
-    return module.default;
+    return page;
   },
   title: title => `${title} - Skripsi`,
   setup({ el, App, props, plugin }) {
     const app = createApp({ render: () => h(App, props) }).use(plugin);
-    
     app.config.productionTip = false;
-    app.config.globalProperties.$helper = helper;
-    app.use(registerGlobalComponent);
+
+    app.use(component);
+
+    app.use(VueToast, {
+      position: 'top-right'
+    });
+
+    app.use(VueModal);
 
     app.mount(el);
     return app;

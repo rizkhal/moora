@@ -5,23 +5,24 @@
         {{ baseNav.name }}
       </p>
 
-      <template v-if="baseNav.subItems.length">
+      <template v-if="baseNav.subItems">
         <li v-for="(nav, i) in baseNav.subItems" :key="i">
-          <Link class="flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="nav.url">
+          <app-link :class="{ 'bg-red-400': isUrl(nav.url.slice(1)) }" class="focus:outline-none flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="nav.url">
             <icon :name="nav.heroicon" :type="nav.icon" class="w-4 h-4" />
             <span class="text-sm"> {{ nav.name }} </span>
-          </Link>
+          </app-link>
         </li>
       </template>
-      <template v-else>
-        <li>
-          <Link class="flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="baseNav.url">
+      <template v-if="baseNav && baseNav.subItems">
+        <li v-if="baseNav.heroicon || baseNav.icon">
+          <app-link :class="{ 'bg-red-400': isUrl(nav.url.slice(1)) }" class="my-3 focus:outline-none flex items-center gap-2 py-2 px-2 rounded-lg font-medium transition hover:bg-red-400 focus:bg-red-400 text-white" :href="baseNav.url">
             <icon :name="baseNav.heroicon" :type="baseNav.icon" class="w-4 h-4" />
             <span class="text-sm"> {{ baseNav.name }} </span>
-          </Link>
+          </app-link>
         </li>
       </template>
-      <li class="pt-3 pb-6" v-if="index != navigator.length - 1">
+
+      <li class="pt-3 pb-6" v-if="baseNav.subItems.length && index != navigator.length - 1">
         <hr class="border-red-600" />
       </li>
     </ul>
@@ -29,26 +30,19 @@
 </template>
 
 <script>
-import icon from '@/components/icon'
-import { Link } from '@inertiajs/inertia-vue3'
-
 export default {
-  components: {
-    icon,
-    Link,
-  },
   props: {
     navigator: Object,
   },
   methods: {
     isUrl(...urls) {
-      let currentUrl = this.$page.url.substr(1)
-      if (urls[0] === '') {
-        return currentUrl === ''
+      let currentUrl = this.$page.url.substr(1);
+      if (urls[0] === "") {
+        return currentUrl === "";
       }
 
-      return urls.filter((url) => currentUrl.startsWith(url)).length
+      return urls.filter((url) => currentUrl.startsWith(url)).length;
     },
   },
-}
+};
 </script>

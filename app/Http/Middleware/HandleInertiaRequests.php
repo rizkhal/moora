@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Models\Setting;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
@@ -41,19 +42,16 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => fn (): array => [
-                'user' => $request->user() ? [
-                    'name' => $request->user()->name,
-                    'avatar' => $request->user()->avatar,
-                ] : null,
+                'user' => $request->user() ? User::with('detail')->find(user()->id) : null,
             ],
             'flash' => fn (): array => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
             'site' => fn (): array => [
-                'navigator' => Nav::items(),
                 'setting' => Setting::first(),
-                'breadcrumbs' => Breadcrumbs::current()
+                'breadcrumbs' => Breadcrumbs::current(),
+                'navigator' => $request->user() ? Nav::items() : null,
             ],
         ]);
     }
