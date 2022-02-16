@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AnnouncementRequest extends FormRequest
@@ -24,8 +25,14 @@ class AnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
+            'reqruitment' => ['required'],
             'title' => ['required'],
             'content' => ['required'],
         ];
+    }
+
+    public function getData(): array
+    {
+        return Arr::except($this->validated(), 'reqruitment');
     }
 }

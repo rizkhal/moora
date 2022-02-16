@@ -18,7 +18,17 @@ Route::middleware(['auth', 'verified'])->group(fn (): array => [
 
     Route::controller(AnnouncementController::class)->prefix('/announcement')->as('announcement.')->group(fn (): array => [
         Route::get('/', 'index')->name('index'),
-        Route::post('/', 'store')->name('store'),
+        Route::get('/all', 'index')->name('index'),
+
+        Route::get('/create', 'create')->name('create'),
+        Route::post('/', 'store')->name('index.store'),
+
+        Route::get('/stared', 'stared')->name('stared'),
+        Route::get('/draft', 'draft')->name('draft'),
+        Route::get('/trash', 'trash')->name('trash'),
+        Route::post('/{announcement}/{enum}', 'addMark')->name('add-mark'),
+        Route::delete('/delete/{announcement}', 'delete')->name('delete'),
+        Route::post('/restore', 'restore')->name('restore'),
     ]),
 
     Route::resource('/reqruitment', ReqruitmentController::class),

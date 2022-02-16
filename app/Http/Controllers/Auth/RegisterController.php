@@ -9,13 +9,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
+use Inertia\Response;
 
 class RegisterController extends Controller
 {
-    public function view(Reqruitment $reqruitment)
+    public function view(Reqruitment $reqruitment): Response
     {
         return inertia('auth/register')->with([
-            'reqruitments' => $reqruitment->select(['id', 'name'])->get(),
+            'reqruitments' => $reqruitment->active()->select(['id', 'name'])->get(),
         ]);
     }
 
@@ -36,6 +37,6 @@ class RegisterController extends Controller
             return redirect()->intended(route('home'));
         });
 
-        return redirect()->back()->with('error', 'Something went wrong');
+        return back();
     }
 }

@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Criteria;
+use App\Enums\ReqruitmentStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -22,6 +24,16 @@ class Reqruitment extends Model
         return $this->hasMany(Criteria::class, 'reqruitment_id', 'id');
     }
 
+    public function scopeActive(): Builder
+    {
+        return static::whereStatus(ReqruitmentStatus::OPEN->value);
+    }
+
+    public function scopeClosed(): Builder
+    {
+        return static::whereStatus(ReqruitmentStatus::CLOSED->value);
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -29,6 +41,16 @@ class Reqruitment extends Model
             'user_has_reqruitments',
             'reqruitment_id',
             'user_id'
+        );
+    }
+
+    public function announcements(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Announcement::class,
+            'announcement_has_reqruitments',
+            'reqruitment_id',
+            'announcement_id'
         );
     }
 }

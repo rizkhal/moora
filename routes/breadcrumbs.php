@@ -69,6 +69,38 @@ Breadcrumbs::for(
 //------------------------------------------
 
 Breadcrumbs::for(
+    'announcement.index',
+    fn (Trail $trail) =>
+    $trail->push('Pengumuman', route('announcement.index'))
+);
+
+Breadcrumbs::for(
+    'announcement.create',
+    fn (Trail $trail) =>
+    $trail->parent('announcement.index')->push('Buat')
+);
+
+Breadcrumbs::for(
+    'announcement.stared',
+    fn (Trail $trail) =>
+    $trail->parent('announcement.index')->push('Berbintang')
+);
+
+Breadcrumbs::for(
+    'announcement.draft',
+    fn (Trail $trail) =>
+    $trail->parent('announcement.index')->push('Draft')
+);
+
+Breadcrumbs::for(
+    'announcement.trash',
+    fn (Trail $trail) =>
+    $trail->parent('announcement.index')->push('Sampah')
+);
+
+//------------------------------------------
+
+Breadcrumbs::for(
     'setting.general.index',
     fn (Trail $trail): Trail =>
     $trail->push('Umum', route('setting.general.index'))

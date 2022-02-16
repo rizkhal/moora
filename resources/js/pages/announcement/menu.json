@@ -2,21 +2,22 @@
     {
         "icon": "SpeakerphoneIcon",
         "text": "Pengumuman",
-        "component": 1
+        "route": "/announcement/all"
     },
     {
         "icon": "StarIcon",
-        "text": "Ditandai",
-        "component": 2
+        "text": "Berbintang",
+        "route": "/announcement/stared"
     },
     {
         "icon": "InboxIcon",
         "text": "Draft",
-        "component": 3
+        "route": "/announcement/draft"
     },
     {
+        "divider": true,
         "icon": "TrashIcon",
         "text": "Sampah",
-        "component": 4
+        "route": "/announcement/trash"
     }
 ]

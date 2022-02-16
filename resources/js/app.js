@@ -18,13 +18,13 @@ InertiaProgress.init({
 
 createInertiaApp({
   resolve: name => {
-    const module = require(`./pages/${name}.vue`);
+    const page = require(`./pages/${name}.vue`).default;
 
-    if (!except.includes(name)) {
-      module.default.layout = appLayout;
+    if (page.layout === undefined && !except.includes(name)) {
+      page.layout = appLayout;
     }
 
-    return module.default;
+    return page;
   },
   title: title => `${title} - Skripsi`,
   setup({ el, App, props, plugin }) {

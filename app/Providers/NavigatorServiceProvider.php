@@ -22,7 +22,7 @@ class NavigatorServiceProvider extends ServiceProvider
                     ->heroicon('SparklesIcon')->icon('solid')
                     ->when($user->hasRole('Peserta')),
 
-                Nav::item(__('Pengumuman'))->for('/home')
+                Nav::item(__('Pengumuman'))->for('#')
                     ->heroicon('SpeakerphoneIcon')->icon('solid')
                     ->when($user->hasRole('Peserta')),
             ]),
